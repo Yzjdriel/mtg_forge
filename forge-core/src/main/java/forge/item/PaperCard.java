@@ -48,7 +48,7 @@ public class PaperCard implements Comparable<IPaperCard>, InventoryItemFromSet, 
     private final String name;
     private final String edition;
     /* [NEW] Attribute to store reference to CollectorNumber of each PaperCard.
-       By default the attribute is marked as "unset" so that it could be retrieved and set.
+       By default, the attribute is marked as "unset" so that it could be retrieved and set.
        (see getCollectorNumber())
     */
     private String collectorNumber;
@@ -445,6 +445,66 @@ public class PaperCard implements Comparable<IPaperCard>, InventoryItemFromSet, 
         return cardGSpecImageKey;
     }
 
+    private String cardPSpecImageKey = null;
+    @Override
+    public String getCardPSpecImageKey() {
+        if (this.cardPSpecImageKey == null) {
+            if (this.rules.getSplitType() == CardSplitType.Specialize)
+                this.cardPSpecImageKey = ImageUtil.getImageKey(this, "purple", true);
+            else  // just use cardImageKey
+                this.cardPSpecImageKey = ImageUtil.getImageKey(this, "", true);
+        }
+        return cardPSpecImageKey;
+    }
+
+    private String cardLSpecImageKey = null;
+    @Override
+    public String getCardLSpecImageKey() {
+        if (this.cardLSpecImageKey == null) {
+            if (this.rules.getSplitType() == CardSplitType.Specialize)
+                this.cardLSpecImageKey = ImageUtil.getImageKey(this, "yellow", true);
+            else  // just use cardImageKey
+                this.cardLSpecImageKey = ImageUtil.getImageKey(this, "", true);
+        }
+        return cardLSpecImageKey;
+    }
+
+    private String cardOSpecImageKey = null;
+    @Override
+    public String getCardOSpecImageKey() {
+        if (this.cardOSpecImageKey == null) {
+            if (this.rules.getSplitType() == CardSplitType.Specialize)
+                this.cardOSpecImageKey = ImageUtil.getImageKey(this, "orange", true);
+            else  // just use cardImageKey
+                this.cardOSpecImageKey = ImageUtil.getImageKey(this, "", true);
+        }
+        return cardOSpecImageKey;
+    }
+
+    private String cardNSpecImageKey = null;
+    @Override
+    public String getCardNSpecImageKey() {
+        if (this.cardNSpecImageKey == null) {
+            if (this.rules.getSplitType() == CardSplitType.Specialize)
+                this.cardNSpecImageKey = ImageUtil.getImageKey(this, "brown", true);
+            else  // just use cardImageKey
+                this.cardNSpecImageKey = ImageUtil.getImageKey(this, "", true);
+        }
+        return cardNSpecImageKey;
+    }
+
+    private String cardKSpecImageKey = null;
+    @Override
+    public String getCardKSpecImageKey() {
+        if (this.cardKSpecImageKey == null) {
+            if (this.rules.getSplitType() == CardSplitType.Specialize)
+                this.cardKSpecImageKey = ImageUtil.getImageKey(this, "pink", true);
+            else  // just use cardImageKey
+                this.cardKSpecImageKey = ImageUtil.getImageKey(this, "", true);
+        }
+        return cardKSpecImageKey;
+    }
+
     @Override
     public boolean hasBackFace(){
         CardSplitType cst = this.rules.getSplitType();
@@ -475,13 +535,18 @@ public class PaperCard implements Comparable<IPaperCard>, InventoryItemFromSet, 
         return variant;
     }
 
-    // Return true if card is one of the five basic lands that can be added for free
+    // Return true if card is one of the ten basic lands that can be added for free
     public boolean isVeryBasicLand() {
         return (this.getName().equals("Swamp"))
                 || (this.getName().equals("Plains"))
                 || (this.getName().equals("Island"))
                 || (this.getName().equals("Forest"))
-                || (this.getName().equals("Mountain"));
+                || (this.getName().equals("Mountain"))
+                || (this.getName().equals("Cave"))
+                || (this.getName().equals("Tempest"))
+                || (this.getName().equals("Dune"))
+                || (this.getName().equals("Valley"))
+                || (this.getName().equals("Meadow"));
     }
 
     public String getSortableName() {

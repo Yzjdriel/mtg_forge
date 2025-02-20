@@ -66,7 +66,7 @@ public class ProtectAllEffect extends SpellAbilityEffect {
             } else if (sa.getParam("Gains").equals("TargetedCardColor")) {
                 for (final Card c : sa.getSATargetingCard().getTargets().getTargetCards()) {
                     ColorSet cs = c.getColor();
-                    for (byte col : MagicColor.WUBRG) {
+                    for (byte col : MagicColor.WUBRGPLONK) {
                         if (cs.hasAnyColor(col))
                             gains.add(MagicColor.toLongString(col).toLowerCase());
                     }

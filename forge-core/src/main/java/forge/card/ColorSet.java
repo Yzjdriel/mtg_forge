@@ -154,19 +154,34 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
     private float getOrderWeight() {
         float res = this.countColors();
         if (hasWhite()) {
-            res += 0.0005f;
+            res += 0.00005f;
         }
         if (hasBlue()) {
-            res += 0.0020f;
+            res += 0.0000020f;
         }
         if (hasBlack()) {
-            res += 0.0080f;
+            res += 0.0000080f;
         }
         if (hasRed()) {
-            res += 0.0320f;
+            res += 0.0000320f;
         }
         if (hasGreen()) {
-            res += 0.1280f;
+            res += 0.0001280f;
+        }
+        if (hasPurple()) {
+            res += 0.0005120f;
+        }
+        if (hasYellow()) {
+            res += 0.0020480f;
+        }
+        if (hasOrange()) {
+            res += 0.0081920f;
+        }
+        if (hasBrown()) {
+            res += 0.0327680f;
+        }
+        if (hasPink()) {
+            res += 0.1310720f;
         }
         return res;
     }
@@ -274,6 +289,47 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
         return this.hasAnyColor(MagicColor.GREEN);
     }
 
+    /**
+     * Checks for purple.
+     *
+     * @return true, if successful
+     */
+    public boolean hasPurple() {
+        return this.hasAnyColor(MagicColor.PURPLE);
+    }
+    /**
+     * Checks for yellow.
+     *
+     * @return true, if successful
+     */
+    public boolean hasYellow() {
+        return this.hasAnyColor(MagicColor.YELLOW);
+    }
+    /**
+     * Checks for orange.
+     *
+     * @return true, if successful
+     */
+    public boolean hasOrange() {
+        return this.hasAnyColor(MagicColor.ORANGE);
+    }
+    /**
+     * Checks for brown.
+     *
+     * @return true, if successful
+     */
+    public boolean hasBrown() {
+        return this.hasAnyColor(MagicColor.BROWN);
+    }
+    /**
+     * Checks for pink.
+     *
+     * @return true, if successful
+     */
+    public boolean hasPink() {
+        return this.hasAnyColor(MagicColor.PINK);
+    }
+
     public ColorSet inverse() {
         byte mask = this.myColor;
         mask ^= MagicColor.ALL_COLORS;
@@ -351,8 +407,8 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
 
         private int getIndexOfNextColor(){
             int nextBit = currentBit + 1;
-            while (nextBit < MagicColor.NUMBER_OR_COLORS) {
-                if ((myColor & MagicColor.WUBRG[nextBit]) != 0) {
+            while (nextBit < MagicColor.NUMBER_OF_COLORS) {
+                if ((myColor & MagicColor.WUBRGPLONK[nextBit]) != 0) {
                     break;
                 }
                 nextBit++;
@@ -362,17 +418,17 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
 
         @Override
         public boolean hasNext() {
-            return getIndexOfNextColor() < MagicColor.NUMBER_OR_COLORS;
+            return getIndexOfNextColor() < MagicColor.NUMBER_OF_COLORS;
         }
 
         @Override
         public Byte next() {
             currentBit = getIndexOfNextColor();
-            if (currentBit >= MagicColor.NUMBER_OR_COLORS) {
+            if (currentBit >= MagicColor.NUMBER_OF_COLORS) {
                 throw new NoSuchElementException();
             }
 
-            return MagicColor.WUBRG[currentBit];
+            return MagicColor.WUBRGPLONK[currentBit];
         }
     }
 
@@ -389,12 +445,22 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
         byte BLACK = MagicColor.BLACK;
         byte RED = MagicColor.RED;
         byte GREEN = MagicColor.GREEN;
+        byte PURPLE = MagicColor.PURPLE;
+        byte YELLOW = MagicColor.YELLOW;
+        byte ORANGE = MagicColor.ORANGE;
+        byte BROWN = MagicColor.BROWN;
+        byte PINK = MagicColor.PINK;
         ManaCostShard C = ManaCostShard.COLORLESS;
         ManaCostShard W = ManaCostShard.WHITE;
         ManaCostShard U = ManaCostShard.BLUE;
         ManaCostShard B = ManaCostShard.BLACK;
         ManaCostShard R = ManaCostShard.RED;
         ManaCostShard G = ManaCostShard.GREEN;
+        ManaCostShard P = ManaCostShard.PURPLE;
+        ManaCostShard L = ManaCostShard.YELLOW;
+        ManaCostShard O = ManaCostShard.ORANGE;
+        ManaCostShard N = ManaCostShard.BROWN;
+        ManaCostShard K = ManaCostShard.PINK;
 
         //colorless
         shardOrderLookup[COLORLESS] = new ManaCostShard[] { C };
@@ -405,6 +471,11 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
         shardOrderLookup[BLACK] = new ManaCostShard[] { B };
         shardOrderLookup[RED] = new ManaCostShard[] { R };
         shardOrderLookup[GREEN] = new ManaCostShard[] { G };
+        shardOrderLookup[PURPLE] = new ManaCostShard[] { P };
+        shardOrderLookup[YELLOW] = new ManaCostShard[] { L };
+        shardOrderLookup[ORANGE] = new ManaCostShard[] { O };
+        shardOrderLookup[BROWN] = new ManaCostShard[] { N };
+        shardOrderLookup[PINK] = new ManaCostShard[] { K };
 
         //two-color
         shardOrderLookup[WHITE | BLUE] = new ManaCostShard[] { W, U };
@@ -417,6 +488,7 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
         shardOrderLookup[RED | WHITE] = new ManaCostShard[] { R, W };
         shardOrderLookup[GREEN | WHITE] = new ManaCostShard[] { G, W };
         shardOrderLookup[GREEN | BLUE] = new ManaCostShard[] { G, U };
+        //TODO: Add all the two and three color shard combos from WUBRGPLONK and the four color combos from PLONK
 
         //three-color
         shardOrderLookup[WHITE | BLUE | BLACK] = new ManaCostShard[] { W, U, B };
@@ -439,5 +511,6 @@ public final class ColorSet implements Comparable<ColorSet>, Iterable<Byte>, Ser
 
         //five-color
         shardOrderLookup[WHITE | BLUE | BLACK | RED | GREEN] = new ManaCostShard[] { W, U, B, R, G };
+        shardOrderLookup[PURPLE | YELLOW | ORANGE | BROWN | PINK] = new ManaCostShard[] { P, L, O, N, K};
     }
 }

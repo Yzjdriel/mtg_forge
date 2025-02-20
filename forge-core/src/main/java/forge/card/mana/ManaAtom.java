@@ -9,32 +9,42 @@ public abstract class ManaAtom {
     public static final int BLACK = MagicColor.BLACK; 
     public static final int RED = MagicColor.RED;
     public static final int GREEN = MagicColor.GREEN;
-    public static final int COLORLESS = 1 << 5;
+    public static final int PURPLE = MagicColor.PURPLE;
+    public static final int YELLOW = MagicColor.YELLOW;
+    public static final int ORANGE = MagicColor.ORANGE;
+    public static final int BROWN = MagicColor.BROWN;
+    public static final int PINK = MagicColor.PINK;
+    public static final int COLORLESS = (byte) (1 << 10);
 
-    public static final byte[] MANACOLORS = new byte[] { WHITE, BLUE, BLACK, RED, GREEN };
-    public static final byte[] MANATYPES = new byte[] { WHITE, BLUE, BLACK, RED, GREEN, COLORLESS };
+    public static final byte[] MANACOLORS = new byte[] { WHITE, BLUE, BLACK, RED, GREEN, PURPLE, YELLOW, ORANGE, BROWN, PINK };
+    public static final byte[] MANATYPES = new byte[] { WHITE, BLUE, BLACK, RED, GREEN, PURPLE, YELLOW, ORANGE, BROWN, PINK, COLORLESS };
 
-    public static final byte ALL_MANA_COLORS = WHITE | BLUE | BLACK | RED | GREEN;
+    public static final byte ALL_MANA_COLORS = WHITE | BLUE | BLACK | RED | GREEN | PURPLE | YELLOW | ORANGE | BROWN | PINK;
     public static final byte ALL_MANA_TYPES = ALL_MANA_COLORS | COLORLESS;
 
-    public static final int GENERIC = 1 << 6;
+    public static final int GENERIC = 1 << 11;
 
     // Below here skip due to byte conversion shenanigans
-    public static final int IS_X = 1 << 8;
-    public static final int OR_2_GENERIC = 1 << 9;
-    public static final int OR_2_LIFE = 1 << 10;
-    public static final int IS_SNOW = 1 << 11;
+    public static final int IS_X = 1 << 13;
+    public static final int OR_2_GENERIC = 1 << 14;
+    public static final int OR_2_LIFE = 1 << 15;
+    public static final int IS_SNOW = 1 << 16;
 
     public static byte fromName(final char c) {
-        switch (Character.toLowerCase(c)) {
-            case 'w': return WHITE;
-            case 'u': return BLUE;
-            case 'b': return BLACK;
-            case 'r': return RED;
-            case 'g': return GREEN;
-            case 'c': return COLORLESS;
-        }
-        return 0; // unknown means 'generic'
+        return switch (Character.toLowerCase(c)) {
+            case 'w' -> WHITE;
+            case 'u' -> BLUE;
+            case 'b' -> BLACK;
+            case 'r' -> RED;
+            case 'g' -> GREEN;
+            case 'p' -> PURPLE;
+            case 'l' -> YELLOW;
+            case 'o' -> ORANGE;
+            case 'n' -> BROWN;
+            case 'k' -> PINK;
+            case 'c' -> COLORLESS;
+            default -> 0;
+        };
     }
 
     public static byte fromName(String s) {
@@ -48,15 +58,20 @@ public abstract class ManaAtom {
         }
         s = s.toLowerCase();
 
-        switch (s) {
-            case MagicColor.Constant.WHITE: return WHITE;
-            case MagicColor.Constant.BLUE: return BLUE;
-            case MagicColor.Constant.BLACK: return BLACK;
-            case MagicColor.Constant.RED: return RED;
-            case MagicColor.Constant.GREEN: return GREEN;
-            case MagicColor.Constant.COLORLESS: return COLORLESS;
-        }
-        return 0; // generic
+        return switch (s) {
+            case MagicColor.Constant.WHITE -> WHITE;
+            case MagicColor.Constant.BLUE -> BLUE;
+            case MagicColor.Constant.BLACK -> BLACK;
+            case MagicColor.Constant.RED -> RED;
+            case MagicColor.Constant.GREEN -> GREEN;
+            case MagicColor.Constant.PURPLE -> PURPLE;
+            case MagicColor.Constant.YELLOW -> YELLOW;
+            case MagicColor.Constant.ORANGE -> ORANGE;
+            case MagicColor.Constant.BROWN -> BROWN;
+            case MagicColor.Constant.PINK -> PINK;
+            case MagicColor.Constant.COLORLESS -> COLORLESS;
+            default -> 0;
+        };
     }
 
     public static byte fromConversion(String s) {

@@ -23,7 +23,7 @@ import forge.util.BinaryUtil;
  * The Class CardManaCostShard.
  */
 public enum ManaCostShard {
-    // declaration order matters! Place the shards that offer least ways to be paid for first
+    // declaration order matters! Place the shards that offer the least ways to be paid for first
 
     /* Pure colors */
     WHITE(ManaAtom.WHITE, "W"),
@@ -31,6 +31,11 @@ public enum ManaCostShard {
     BLACK(ManaAtom.BLACK, "B"),
     RED(ManaAtom.RED, "R"),
     GREEN(ManaAtom.GREEN, "G"),
+    PURPLE(ManaAtom.PURPLE, "P"),
+    YELLOW(ManaAtom.YELLOW, "L"),
+    ORANGE(ManaAtom.ORANGE, "O"),
+    BROWN(ManaAtom.BROWN, "N"),
+    PINK(ManaAtom.PINK, "K"),
     COLORLESS(ManaAtom.COLORLESS, "C"),
 
     /* Hybrid */
@@ -44,6 +49,41 @@ public enum ManaCostShard {
     RG(ManaAtom.RED | ManaAtom.GREEN, "R/G", "RG"),
     GW(ManaAtom.GREEN | ManaAtom.WHITE, "G/W", "GW"),
     GU(ManaAtom.GREEN | ManaAtom.BLUE, "G/U", "GU"),
+    PL(ManaAtom.PURPLE | ManaAtom.YELLOW, "P/L", "PL"),
+    PO(ManaAtom.PURPLE | ManaAtom.ORANGE, "P/O", "PO"),
+    LO(ManaAtom.YELLOW | ManaAtom.ORANGE, "L/O", "LO"),
+    LN(ManaAtom.YELLOW | ManaAtom.BROWN, "L/N", "LN"),
+    ON(ManaAtom.ORANGE | ManaAtom.BROWN, "O/N", "ON"),
+    OK(ManaAtom.ORANGE | ManaAtom.PINK, "O/K", "OK"),
+    NK(ManaAtom.BROWN | ManaAtom.PINK, "N/K", "NK"),
+    NP(ManaAtom.BROWN | ManaAtom.PURPLE, "N/P", "NP"),
+    KP(ManaAtom.PINK | ManaAtom.PURPLE, "K/P", "KP"),
+    KL(ManaAtom.PINK | ManaAtom.YELLOW, "K/L", "KL"),
+    WP(ManaAtom.WHITE | ManaAtom.PURPLE, "W/P", "WP"),
+    WL(ManaAtom.WHITE | ManaAtom.YELLOW, "W/L", "WL"),
+    WO(ManaAtom.WHITE | ManaAtom.ORANGE, "W/O", "WO"),
+    WN(ManaAtom.WHITE | ManaAtom.BROWN, "W/N", "WN"),
+    WK(ManaAtom.WHITE | ManaAtom.PINK, "W/K", "WK"),
+    UP(ManaAtom.BLUE | ManaAtom.PURPLE, "U/P", "UP"),
+    UL(ManaAtom.BLUE | ManaAtom.YELLOW, "U/L", "UL"),
+    UO(ManaAtom.BLUE | ManaAtom.ORANGE, "U/O", "UO"),
+    UN(ManaAtom.BLUE | ManaAtom.BROWN, "U/N", "UN"),
+    UK(ManaAtom.BLUE | ManaAtom.PINK, "U/K", "UK"),
+    BP(ManaAtom.BLACK | ManaAtom.PURPLE, "B/P", "BP"),
+    BL(ManaAtom.BLACK | ManaAtom.YELLOW, "B/L", "BL"),
+    BO(ManaAtom.BLACK | ManaAtom.ORANGE, "B/O", "BO"),
+    BN(ManaAtom.BLACK | ManaAtom.BROWN, "B/N", "BN"),
+    BK(ManaAtom.BLACK | ManaAtom.PINK, "B/K", "BK"),
+    RP(ManaAtom.RED | ManaAtom.PURPLE, "R/P", "RP"),
+    RL(ManaAtom.RED | ManaAtom.YELLOW, "R/L", "RL"),
+    RO(ManaAtom.RED | ManaAtom.ORANGE, "R/O", "RO"),
+    RN(ManaAtom.RED | ManaAtom.BROWN, "R/N", "RN"),
+    RK(ManaAtom.RED | ManaAtom.PINK, "R/K", "RK"),
+    GP(ManaAtom.GREEN | ManaAtom.PURPLE, "G/P", "GP"),
+    GL(ManaAtom.GREEN | ManaAtom.YELLOW, "G/L", "GL"),
+    GO(ManaAtom.GREEN | ManaAtom.ORANGE, "G/O", "GO"),
+    GN(ManaAtom.GREEN | ManaAtom.BROWN, "G/N", "GN"),
+    GK(ManaAtom.GREEN | ManaAtom.PINK, "G/K", "GK"),
 
     /* Or 2 generic */
     W2(ManaAtom.WHITE | ManaAtom.OR_2_GENERIC, "2/W", "2W"),
@@ -51,6 +91,11 @@ public enum ManaCostShard {
     B2(ManaAtom.BLACK | ManaAtom.OR_2_GENERIC, "2/B", "2B"),
     R2(ManaAtom.RED | ManaAtom.OR_2_GENERIC, "2/R", "2R"),
     G2(ManaAtom.GREEN | ManaAtom.OR_2_GENERIC, "2/G", "2G"),
+    P2(ManaAtom.PURPLE | ManaAtom.OR_2_GENERIC, "2/P", "2P"),
+    L2(ManaAtom.YELLOW | ManaAtom.OR_2_GENERIC, "2/L", "2L"),
+    O2(ManaAtom.ORANGE | ManaAtom.OR_2_GENERIC, "2/O", "2O"),
+    N2(ManaAtom.BROWN | ManaAtom.OR_2_GENERIC, "2/N", "2N"),
+    K2(ManaAtom.PINK | ManaAtom.OR_2_GENERIC, "2/K", "2K"),
 
     /* Or Colorless */
     CW(ManaAtom.WHITE | ManaAtom.COLORLESS, "C/W", "CW"),
@@ -58,33 +103,72 @@ public enum ManaCostShard {
     CB(ManaAtom.BLACK | ManaAtom.COLORLESS, "C/B", "CB"),
     CR(ManaAtom.RED | ManaAtom.COLORLESS, "C/R", "CR"),
     CG(ManaAtom.GREEN | ManaAtom.COLORLESS, "C/G", "CG"),
+    CP(ManaAtom.PURPLE | ManaAtom.COLORLESS, "C/P", "CP"),
+    CL(ManaAtom.YELLOW | ManaAtom.COLORLESS, "C/L", "CL"),
+    CO(ManaAtom.ORANGE | ManaAtom.COLORLESS, "C/O", "CO"),
+    CN(ManaAtom.BROWN | ManaAtom.COLORLESS, "C/N", "CN"),
+    CK(ManaAtom.PINK | ManaAtom.COLORLESS, "C/K", "CK"),
 
     // Snow and colorless
     S(ManaAtom.IS_SNOW, "S"),
     GENERIC(ManaAtom.GENERIC, "1"),
 
-
     /* Phyrexian */
-    WP(ManaAtom.WHITE | ManaAtom.OR_2_LIFE, "W/P", "WP"),
-    UP(ManaAtom.BLUE | ManaAtom.OR_2_LIFE, "U/P", "UP"),
-    BP(ManaAtom.BLACK | ManaAtom.OR_2_LIFE, "B/P", "BP"),
-    RP(ManaAtom.RED | ManaAtom.OR_2_LIFE, "R/P", "RP"),
-    GP(ManaAtom.GREEN | ManaAtom.OR_2_LIFE, "G/P", "GP"),
-    BGP(ManaAtom.BLACK | ManaAtom.GREEN | ManaAtom.OR_2_LIFE, "B/G/P", "BGP"),
-    BRP(ManaAtom.BLACK | ManaAtom.RED | ManaAtom.OR_2_LIFE, "B/R/P", "BRP"),
-    GUP(ManaAtom.GREEN | ManaAtom.BLUE | ManaAtom.OR_2_LIFE, "G/U/P", "GUP"),
-    GWP(ManaAtom.GREEN | ManaAtom.WHITE | ManaAtom.OR_2_LIFE, "G/W/P", "GWP"),
-    RGP(ManaAtom.RED | ManaAtom.GREEN | ManaAtom.OR_2_LIFE, "R/G/P", "RGP"),
-    RWP(ManaAtom.RED | ManaAtom.WHITE | ManaAtom.OR_2_LIFE, "R/W/P", "RWP"),
-    UBP(ManaAtom.BLUE | ManaAtom.BLACK | ManaAtom.OR_2_LIFE, "U/B/P", "UBP"),
-    URP(ManaAtom.BLUE | ManaAtom.RED | ManaAtom.OR_2_LIFE, "U/R/P", "URP"),
-    WBP(ManaAtom.WHITE | ManaAtom.BLACK | ManaAtom.OR_2_LIFE, "W/B/P", "WBP"),
-    WUP(ManaAtom.WHITE | ManaAtom.BLUE | ManaAtom.OR_2_LIFE, "W/U/P", "WUP"),
+    WH(ManaAtom.WHITE | ManaAtom.OR_2_LIFE, "W/H", "WH"),
+    UH(ManaAtom.BLUE | ManaAtom.OR_2_LIFE, "U/H", "UH"),
+    BH(ManaAtom.BLACK | ManaAtom.OR_2_LIFE, "B/H", "BH"),
+    RH(ManaAtom.RED | ManaAtom.OR_2_LIFE, "R/H", "RH"),
+    GH(ManaAtom.GREEN | ManaAtom.OR_2_LIFE, "G/H", "GH"),
+    BGH(ManaAtom.BLACK | ManaAtom.GREEN | ManaAtom.OR_2_LIFE, "B/G/H", "BGH"),
+    BRH(ManaAtom.BLACK | ManaAtom.RED | ManaAtom.OR_2_LIFE, "B/R/H", "BRH"),
+    GUH(ManaAtom.GREEN | ManaAtom.BLUE | ManaAtom.OR_2_LIFE, "G/U/H", "GUH"),
+    GWH(ManaAtom.GREEN | ManaAtom.WHITE | ManaAtom.OR_2_LIFE, "G/W/H", "GWH"),
+    RGH(ManaAtom.RED | ManaAtom.GREEN | ManaAtom.OR_2_LIFE, "R/G/H", "RGH"),
+    RWH(ManaAtom.RED | ManaAtom.WHITE | ManaAtom.OR_2_LIFE, "R/W/H", "RWH"),
+    UBH(ManaAtom.BLUE | ManaAtom.BLACK | ManaAtom.OR_2_LIFE, "U/B/H", "UBH"),
+    URH(ManaAtom.BLUE | ManaAtom.RED | ManaAtom.OR_2_LIFE, "U/R/H", "URH"),
+    WBH(ManaAtom.WHITE | ManaAtom.BLACK | ManaAtom.OR_2_LIFE, "W/B/H", "WBH"),
+    WUH(ManaAtom.WHITE | ManaAtom.BLUE | ManaAtom.OR_2_LIFE, "W/U/H", "WUH"),
+    PLH(ManaAtom.PURPLE | ManaAtom.YELLOW | ManaAtom.OR_2_LIFE, "P/L/H", "PLH"),
+    POH(ManaAtom.PURPLE | ManaAtom.ORANGE | ManaAtom.OR_2_LIFE, "P/O/H", "POH"),
+    LOH(ManaAtom.YELLOW | ManaAtom.ORANGE | ManaAtom.OR_2_LIFE, "L/O/H", "LOH"),
+    LNH(ManaAtom.YELLOW | ManaAtom.BROWN | ManaAtom.OR_2_LIFE, "L/N/H", "LNH"),
+    ONH(ManaAtom.ORANGE | ManaAtom.BROWN | ManaAtom.OR_2_LIFE, "O/N/H", "ONH"),
+    OKH(ManaAtom.ORANGE | ManaAtom.PINK | ManaAtom.OR_2_LIFE, "O/K/H", "OKH"),
+    NKH(ManaAtom.BROWN | ManaAtom.PINK | ManaAtom.OR_2_LIFE, "N/K/H", "NKH"),
+    NPH(ManaAtom.BROWN | ManaAtom.PURPLE | ManaAtom.OR_2_LIFE, "N/P/H", "NPH"),
+    KPH(ManaAtom.PINK | ManaAtom.PURPLE | ManaAtom.OR_2_LIFE, "K/P/H", "KPH"),
+    KLH(ManaAtom.PINK | ManaAtom.YELLOW | ManaAtom.OR_2_LIFE, "K/L/H", "KLH"),
+    WPH(ManaAtom.WHITE | ManaAtom.PURPLE | ManaAtom.OR_2_LIFE, "W/P/H", "WPH"),
+    WLH(ManaAtom.WHITE | ManaAtom.YELLOW | ManaAtom.OR_2_LIFE, "W/L/H", "WLH"),
+    WOH(ManaAtom.WHITE | ManaAtom.ORANGE | ManaAtom.OR_2_LIFE, "W/O/H", "WOH"),
+    WNH(ManaAtom.WHITE | ManaAtom.BROWN | ManaAtom.OR_2_LIFE, "W/N/H", "WNH"),
+    WKH(ManaAtom.WHITE | ManaAtom.PINK | ManaAtom.OR_2_LIFE, "W/K/H", "WKH"),
+    UPH(ManaAtom.BLUE | ManaAtom.PURPLE | ManaAtom.OR_2_LIFE, "U/P/H", "UPH"),
+    ULH(ManaAtom.BLUE | ManaAtom.YELLOW | ManaAtom.OR_2_LIFE, "U/L/H", "ULH"),
+    UOH(ManaAtom.BLUE | ManaAtom.ORANGE | ManaAtom.OR_2_LIFE, "U/O/H", "UOH"),
+    UNH(ManaAtom.BLUE | ManaAtom.BROWN | ManaAtom.OR_2_LIFE, "U/N/H", "UNH"),
+    UKH(ManaAtom.BLUE | ManaAtom.PINK | ManaAtom.OR_2_LIFE, "U/K/H", "UKH"),
+    BPH(ManaAtom.BLACK | ManaAtom.PURPLE | ManaAtom.OR_2_LIFE, "B/P/H", "BPH"),
+    BLH(ManaAtom.BLACK | ManaAtom.YELLOW | ManaAtom.OR_2_LIFE, "B/L/H", "BLH"),
+    BOH(ManaAtom.BLACK | ManaAtom.ORANGE | ManaAtom.OR_2_LIFE, "B/O/H", "BOH"),
+    BNH(ManaAtom.BLACK | ManaAtom.BROWN | ManaAtom.OR_2_LIFE, "B/N/H", "BNH"),
+    BKH(ManaAtom.BLACK | ManaAtom.PINK | ManaAtom.OR_2_LIFE, "B/K/H", "BKH"),
+    RPH(ManaAtom.RED | ManaAtom.PURPLE | ManaAtom.OR_2_LIFE, "R/P/H", "RPH"),
+    RLH(ManaAtom.RED | ManaAtom.YELLOW | ManaAtom.OR_2_LIFE, "R/L/H", "RLH"),
+    ROH(ManaAtom.RED | ManaAtom.ORANGE | ManaAtom.OR_2_LIFE, "R/O/H", "ROH"),
+    RNH(ManaAtom.RED | ManaAtom.BROWN | ManaAtom.OR_2_LIFE, "R/N/H", "RNH"),
+    RKH(ManaAtom.RED | ManaAtom.PINK | ManaAtom.OR_2_LIFE, "R/K/H", "RKH"),
+    GPH(ManaAtom.GREEN | ManaAtom.PURPLE | ManaAtom.OR_2_LIFE, "G/P/H", "GPH"),
+    GLH(ManaAtom.GREEN | ManaAtom.YELLOW | ManaAtom.OR_2_LIFE, "G/L/H", "GLH"),
+    GOH(ManaAtom.GREEN | ManaAtom.ORANGE | ManaAtom.OR_2_LIFE, "G/O/H", "GOH"),
+    GNH(ManaAtom.GREEN | ManaAtom.BROWN | ManaAtom.OR_2_LIFE, "G/N/H", "GNH"),
+    GKH(ManaAtom.GREEN | ManaAtom.PINK | ManaAtom.OR_2_LIFE, "G/K/H", "GKH"),
 
     X(ManaAtom.IS_X, "X"),
 
     // Colored only X, each color can be used to pay for this only once (for Emblazoned Golem)
-    COLORED_X(ManaAtom.WHITE | ManaAtom.BLUE | ManaAtom.BLACK | ManaAtom.RED | ManaAtom.GREEN | ManaAtom.IS_X, "1");
+    COLORED_X(ManaAtom.WHITE | ManaAtom.BLUE | ManaAtom.BLACK | ManaAtom.RED | ManaAtom.GREEN | ManaAtom.PURPLE | ManaAtom.YELLOW | ManaAtom.ORANGE | ManaAtom.BROWN | ManaAtom.PINK | ManaAtom.IS_X, "1");
 
     private final int shard;
 
@@ -128,7 +212,7 @@ public enum ManaCostShard {
         this.imageKey = imgKey;
     }
 
-    public static final int COLORS_SUPERPOSITION = ManaAtom.WHITE | ManaAtom.BLUE | ManaAtom.BLACK | ManaAtom.RED | ManaAtom.GREEN;
+    public static final int COLORS_SUPERPOSITION = ManaAtom.WHITE | ManaAtom.BLUE | ManaAtom.BLACK | ManaAtom.RED | ManaAtom.GREEN | ManaAtom.PURPLE | ManaAtom.YELLOW | ManaAtom.ORANGE | ManaAtom.BROWN | ManaAtom.PINK;
 
     private int getCMC() {
         if (0 != (this.shard & ManaAtom.IS_X)) {
@@ -150,27 +234,42 @@ public enum ManaCostShard {
      */
     private float getCmpCost() {
         if (0 != (this.shard & ManaAtom.IS_X)) {
-            return 0.0001f;
+            return 0.0000001f;
         }
         float cost = 0 != (this.shard & ManaAtom.OR_2_GENERIC) ? 2 : 1;
         // yes, these numbers are magic, slightly-magic
         if (0 != (this.shard & ManaAtom.WHITE)) {
-            cost += 0.0005f;
+            cost += 0.0000005f;
         }
         if (0 != (this.shard & ManaAtom.BLUE)) {
-            cost += 0.0020f;
+            cost += 0.0000020f;
         }
         if (0 != (this.shard & ManaAtom.BLACK)) {
-            cost += 0.0080f;
+            cost += 0.0000080f;
         }
         if (0 != (this.shard & ManaAtom.RED)) {
-            cost += 0.0320f;
+            cost += 0.0000320f;
         }
         if (0 != (this.shard & ManaAtom.GREEN)) {
-            cost += 0.1280f;
+            cost += 0.0001280f;
+        }
+        if (0 != (this.shard & ManaAtom.PURPLE)) {
+            cost += 0.0005120f;
+        }
+        if (0 != (this.shard & ManaAtom.YELLOW)) {
+            cost += 0.0020480f;
+        }
+        if (0 != (this.shard & ManaAtom.ORANGE)) {
+            cost += 0.0081920f;
+        }
+        if (0 != (this.shard & ManaAtom.BROWN)) {
+            cost += 0.0327680f;
+        }
+        if (0 != (this.shard & ManaAtom.PINK)) {
+            cost += 0.1310720f;
         }
         if (0 != (this.shard & ManaAtom.OR_2_LIFE)) {
-            cost += 0.00003f;
+            cost += 0.00000003f;
         }
         return cost;
     }
@@ -213,7 +312,12 @@ public enum ManaCostShard {
                 case 'B': atoms |= ManaAtom.BLACK;          break;
                 case 'R': atoms |= ManaAtom.RED;            break;
                 case 'G': atoms |= ManaAtom.GREEN;          break;
-                case 'P': atoms |= ManaAtom.OR_2_LIFE;      break;
+                case 'P': atoms |= ManaAtom.PURPLE;         break;
+                case 'L': atoms |= ManaAtom.YELLOW;         break;
+                case 'O': atoms |= ManaAtom.ORANGE;         break;
+                case 'N': atoms |= ManaAtom.BROWN;          break;
+                case 'K': atoms |= ManaAtom.PINK;           break;
+                case 'H': atoms |= ManaAtom.OR_2_LIFE;      break;
                 case 'S': atoms |= ManaAtom.IS_SNOW;        break;
                 case 'X': atoms |= ManaAtom.IS_X;           break;
                 case 'C': atoms |= ManaAtom.COLORLESS;      break;
@@ -284,6 +388,11 @@ public enum ManaCostShard {
     public boolean isGreen() {
         return isOfKind(ManaAtom.GREEN);
     }
+    public boolean isPurple() {return isOfKind(ManaAtom.PURPLE);}
+    public boolean isYellow() {return isOfKind(ManaAtom.YELLOW);}
+    public boolean isOrange() {return isOfKind(ManaAtom.ORANGE);}
+    public boolean isBrown() {return isOfKind(ManaAtom.BROWN);}
+    public boolean isPink() {return isOfKind(ManaAtom.PINK);}
 
     /**
      * TODO: Write javadoc for this method.

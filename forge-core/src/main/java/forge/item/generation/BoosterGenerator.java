@@ -687,26 +687,20 @@ public class BoosterGenerator {
                 toAdd = PaperCardPredicates.names(Lists.newArrayList(cardNames));
             } else if (operator.startsWith("color(")) {
                 operator = StringUtils.strip(operator.substring("color(".length() + 1), "()\" ");
-                switch (operator.toLowerCase()) {
-                    case "black":
-                        toAdd = PaperCardPredicates.IS_BLACK;
-                        break;
-                    case "blue":
-                        toAdd = PaperCardPredicates.IS_BLUE;
-                        break;
-                    case "green":
-                        toAdd = PaperCardPredicates.IS_GREEN;
-                        break;
-                    case "red":
-                        toAdd = PaperCardPredicates.IS_RED;
-                        break;
-                    case "white":
-                        toAdd = PaperCardPredicates.IS_WHITE;
-                        break;
-                    case "colorless":
-                        toAdd = PaperCardPredicates.IS_COLORLESS;
-                        break;
-                }
+                toAdd = switch (operator.toLowerCase()) {
+                    case "black" -> PaperCardPredicates.IS_BLACK;
+                    case "blue" -> PaperCardPredicates.IS_BLUE;
+                    case "brown" -> PaperCardPredicates.IS_BROWN;
+                    case "green" -> PaperCardPredicates.IS_GREEN;
+                    case "orange" -> PaperCardPredicates.IS_ORANGE;
+                    case "pink" -> PaperCardPredicates.IS_PINK;
+                    case "purple" -> PaperCardPredicates.IS_PURPLE;
+                    case "red" -> PaperCardPredicates.IS_RED;
+                    case "white" -> PaperCardPredicates.IS_WHITE;
+                    case "yellow" -> PaperCardPredicates.IS_YELLOW;
+                    case "colorless" -> PaperCardPredicates.IS_COLORLESS;
+                    default -> toAdd;
+                };
             } else if (operator.startsWith("fromSets(")) {
                 operator = StringUtils.strip(operator.substring("fromSets(".length() + 1), "()\" ");
                 String[] sets = operator.split(",");

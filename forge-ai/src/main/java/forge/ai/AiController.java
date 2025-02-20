@@ -622,8 +622,8 @@ public class AiController {
         // Choose first land to be able to play a one drop
         if (player.getLandsInPlay().isEmpty()) {
             CardCollection oneDrops = CardLists.filter(nonLandsInHand, CardPredicates.hasCMC(1));
-            for (int i = 0; i < MagicColor.WUBRG.length; i++) {
-                byte color = MagicColor.WUBRG[i];
+            for (int i = 0; i < MagicColor.WUBRGPLONK.length; i++) {
+                byte color = MagicColor.WUBRGPLONK[i];
                 if (oneDrops.anyMatch(CardPredicates.isColor(color))) {
                     for (Card land : landList) {
                         if (land.getType().hasSubtype(MagicColor.Constant.BASIC_LANDS.get(i))) {

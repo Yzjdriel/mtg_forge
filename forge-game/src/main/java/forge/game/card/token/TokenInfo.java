@@ -172,7 +172,7 @@ public class TokenInfo {
                     byte v = MagicColor.fromName(e.getValue());
                     // Any used by Swirl the Mists
                     if ("Any".equals(e.getKey())) {
-                        for (final byte c : MagicColor.WUBRG) {
+                        for (final byte c : MagicColor.WUBRGPLONK) {
                             // try to replace color flips
                             if ((color & c) != 0) {
                                 color &= ~c;
@@ -242,7 +242,7 @@ public class TokenInfo {
                 final String vCaps = StringUtils.capitalize(vName);
                 final String vLow = vName.toLowerCase();
                 if ("Any".equals(e.getKey())) {
-                    for (final byte c : MagicColor.WUBRG) {
+                    for (final byte c : MagicColor.WUBRGPLONK) {
                         final String cName = MagicColor.toLongString(c);
                         final String cNameCaps = StringUtils.capitalize(cName);
                         final String cNameLow = cName.toLowerCase();

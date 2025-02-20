@@ -82,4 +82,6 @@ public class CardChangedType {
     public final boolean isRemoveEnchantmentTypes() {
         return remove.contains(RemoveType.EnchantmentTypes);
     }
+
+    public final boolean isRemoveStructureTypes() {return remove.contains(RemoveType.StructureTypes);}
 }

@@ -37,6 +37,8 @@ public abstract class Lang {
             instance = new LangJapanese();
         } else if (language.equals("fr")) {
             instance = new LangFrench();
+        } else if (language.equals("zn")) {
+            instance = new LangZineri();
         } else { // default is English
             instance = new LangEnglish();
         }
@@ -172,7 +174,7 @@ public abstract class Lang {
         }
     }
 
-    public abstract String getPossesive(final String name);
+    public abstract String getPossessive(final String name);
 
     public abstract String getPossessedObject(final String owner, final String object);
 

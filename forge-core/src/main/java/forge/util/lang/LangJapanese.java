@@ -10,13 +10,13 @@ public class LangJapanese extends Lang {
     }
 
     @Override
-    public String getPossesive(final String name) {
+    public String getPossessive(final String name) {
         return name + "の";
     }
 
     @Override
     public String getPossessedObject(final String owner, final String object) {
-        return getPossesive(owner) + object;
+        return getPossessive(owner) + object;
     }
 
     @Override

@@ -2,25 +2,24 @@ package forge.util.lang;
 
 import forge.util.Lang;
 
-public class LangItalian extends Lang {
-    
+public class LangZineri extends Lang {
+
     @Override
     public String getOrdinal(final int position) {
-        return position + "º";
+        final String[] suffixes = new String[] {};
+        return position + suffixes[position%10];
     }
 
-    // TODO: Please update this when you modified lblYou in it-IT.properties
     @Override
     public String getPossessive(final String name) {
-        if ("You".equalsIgnoreCase(name)) {
-            return name + "r"; // to get "your"
+        if("You".equalsIgnoreCase(name)) {
+            return name + "r";//to get "your"//TODO: fix for Zineri
         }
-        return name.endsWith("s") ? name + "'" : name + "'s";
+        return "";//TODO: fix for Zineri
     }
 
     @Override
     public String getPossessedObject(final String owner, final String object) {
         return getPossessive(owner) + " " + object;
     }
-
 }

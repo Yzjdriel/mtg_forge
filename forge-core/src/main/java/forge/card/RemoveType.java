@@ -8,5 +8,6 @@ public enum RemoveType {
     CreatureTypes,
     ArtifactTypes,
     EnchantmentTypes,
+    StructureTypes,
     ;
 }

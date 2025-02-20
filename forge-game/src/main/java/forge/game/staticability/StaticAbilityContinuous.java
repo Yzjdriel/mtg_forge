@@ -193,7 +193,7 @@ public final class StaticAbilityContinuous {
                     }
 
                     if (input.contains("AllColors") || input.contains("allColors")) {
-                        for (byte color : MagicColor.WUBRG) {
+                        for (byte color : MagicColor.WUBRGPLONK) {
                             final String colorWord = MagicColor.toLongString(color);
                             String y = input.replaceAll("AllColors", StringUtils.capitalize(colorWord));
                             y = y.replaceAll("allColors", colorWord);

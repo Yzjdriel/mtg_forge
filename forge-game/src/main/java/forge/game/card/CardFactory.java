@@ -235,6 +235,26 @@ public class CardFactory {
                 c.setImageKey(cp.getImageKey(false) + ImageKeys.SPECFACE_G);
                 c.setSetCode(cp.getEdition());
                 c.setRarity(cp.getRarity());
+                c.setState(CardStateName.SpecializeP, false);
+                c.setImageKey(cp.getImageKey(false) + ImageKeys.SPECFACE_P);
+                c.setSetCode(cp.getEdition());
+                c.setRarity(cp.getRarity());
+                c.setState(CardStateName.SpecializeL, false);
+                c.setImageKey(cp.getImageKey(false) + ImageKeys.SPECFACE_L);
+                c.setSetCode(cp.getEdition());
+                c.setRarity(cp.getRarity());
+                c.setState(CardStateName.SpecializeO, false);
+                c.setImageKey(cp.getImageKey(false) + ImageKeys.SPECFACE_O);
+                c.setSetCode(cp.getEdition());
+                c.setRarity(cp.getRarity());
+                c.setState(CardStateName.SpecializeN, false);
+                c.setImageKey(cp.getImageKey(false) + ImageKeys.SPECFACE_N);
+                c.setSetCode(cp.getEdition());
+                c.setRarity(cp.getRarity());
+                c.setState(CardStateName.SpecializeK, false);
+                c.setImageKey(cp.getImageKey(false) + ImageKeys.SPECFACE_K);
+                c.setSetCode(cp.getEdition());
+                c.setRarity(cp.getRarity());
             }
 
             c.setSetCode(cp.getEdition());

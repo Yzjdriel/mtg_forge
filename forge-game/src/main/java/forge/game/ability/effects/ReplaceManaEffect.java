@@ -47,7 +47,7 @@ public class ReplaceManaEffect extends SpellAbilityEffect {
                 // convert in case Color Word used
                 color = MagicColor.toShortString(color);
             }
-            for (byte c : MagicColor.WUBRGC) {
+            for (byte c : MagicColor.WUBRGPLONKC) {
                 String s = MagicColor.toShortString(c);
                 replaced = replaced.replace(s, color);
             }
@@ -65,7 +65,7 @@ public class ReplaceManaEffect extends SpellAbilityEffect {
             if (sa.hasParam("ReplaceOnly")) {
                 replaced = replaced.replace(sa.getParam("ReplaceOnly"), color);
             } else {
-                for (byte c : MagicColor.WUBRG) {
+                for (byte c : MagicColor.WUBRGPLONK) {
                     String s = MagicColor.toShortString(c);
                     replaced = replaced.replace(s, color);
                 }

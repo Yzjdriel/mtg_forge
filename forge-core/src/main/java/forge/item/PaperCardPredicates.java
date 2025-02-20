@@ -143,9 +143,14 @@ public abstract class PaperCardPredicates {
     public static final Predicate<PaperCard> IS_BASIC_LAND_RARITY = new PredicateRarity(CardRarity.BasicLand);
     public static final Predicate<PaperCard> IS_BLACK = new PredicateColor(MagicColor.BLACK);
     public static final Predicate<PaperCard> IS_BLUE = new PredicateColor(MagicColor.BLUE);
+    public static final Predicate<PaperCard> IS_BROWN = new PredicateColor(MagicColor.BROWN);
     public static final Predicate<PaperCard> IS_GREEN = new PredicateColor(MagicColor.GREEN);
+    public static final Predicate<PaperCard> IS_ORANGE = new PredicateColor(MagicColor.ORANGE);
+    public static final Predicate<PaperCard> IS_PINK = new PredicateColor(MagicColor.PINK);
+    public static final Predicate<PaperCard> IS_PURPLE = new PredicateColor(MagicColor.PURPLE);
     public static final Predicate<PaperCard> IS_RED = new PredicateColor(MagicColor.RED);
     public static final Predicate<PaperCard> IS_WHITE = new PredicateColor(MagicColor.WHITE);
+    public static final Predicate<PaperCard> IS_YELLOW = new PredicateColor(MagicColor.YELLOW);
     public static final Predicate<PaperCard> IS_COLORLESS = paperCard -> paperCard.getRules().getColor().isColorless();
     public static final Predicate<PaperCard> IS_UNREBALANCED = PaperCard::isUnRebalanced;
     public static final Predicate<PaperCard> IS_REBALANCED = PaperCard::isRebalanced;

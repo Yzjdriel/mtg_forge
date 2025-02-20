@@ -362,7 +362,7 @@ public abstract class CardTraitBase extends GameObject implements IHasCardView, 
             final String color = params.get("Adamant");
             if ("Any".equals(color)) {
                 boolean bFlag = false;
-                for (byte c : MagicColor.WUBRG) {
+                for (byte c : MagicColor.WUBRGPLONK) {
                     if (StringUtils.countMatches(payingMana, MagicColor.toShortString(c)) >= 3) {
                         bFlag = true;
                         break;

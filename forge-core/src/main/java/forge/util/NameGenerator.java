@@ -37,7 +37,7 @@ public final class NameGenerator {
 			"Gryn", "Gundir", "Gustov", "Guthale", "Gybol", "Gybrush", "Gyin", "Halmar", "Harrenhal", "Hasten", "Hectar",
 			"Hecton", "Heramon", "Hermenze", "Hermuck", "Hezak", "Hildale", "Hildar", "Hileict", "Hydale", "Hyten", "Iarmod",
 			"Idon", "Ieli", "Ieserk", "Ikar", "Ilgenar", "Illilorn", "Illium", "Ingel", "Ipedorn", "Irefist", "Ironmark",
-			"Isen", "Isil", "Ithric", "Jackson", "Jalil", "Jamik", "Janus", "Jayco", "Jaython", "Jesco", "Jespar",
+			"Isen", "Isil", "Ithric", "Jackson", "Jalil", "Jamik", "Janus", "Jayco", "Jaython", "Jaznak", "Jesco", "Jespar",
 			"Jethil", "Jex", "Jib", "Jibar", "Jin", "Juktar", "Julthor", "Jun", "Justal", "Kafar", "Kaldar",
 			"Kellan", "Keran", "Kesad", "Kesmon", "Kethren", "Kib", "Kibidon", "Kiden", "Kilbas", "Kilburn", "Kildarien",
 			"Kimdar", "Kinorn", "Kip", "Kirder", "Kodof", "Kolmorn", "Kyrad", "Lackus", "Lacspor", "Laderic", "Lafornon",
@@ -72,7 +72,7 @@ public final class NameGenerator {
 	private static final String[] fantasyFemales = new String[] {
 			"Acele", "Acholate", "Ada", "Adiannon", "Adorra", "Ahanna", "Akara", "Akassa", "Akia", "Amaerilde", "Amara",
 			"Amarisa", "Amarizi", "Ana", "Andonna", "Ani", "Annalyn", "Archane", "Ariannona", "Arina", "Arryn", "Asada",
-			"Awnia", "Ayne", "Basete", "Bathelie", "Bethe", "Brana", "Brianan", "Bridonna", "Brynhilde", "Calene", "Calina",
+			"Awnia", "Ayne", "Azoireda", "Basete", "Bathelie", "Bethe", "Brana", "Brianan", "Bridonna", "Brynhilde", "Calene", "Calina",
 			"Celestine", "Celoa", "Cephenrene", "Chani", "Chivahle", "Chrystyne", "Corda", "Cyelena", "Dalavesta", "Desini", "Dylena",
 			"Ebatryne", "Ecematare", "Efari", "Enaldie", "Enoka", "Enoona", "Errinaya", "Fayne", "Frederika", "Frida", "Gene",
 			"Gessane", "Gronalyn", "Gvene", "Gwethana", "Halete", "Helenia", "Hildandi", "Hyza", "Idona", "Ikini", "Ilene",

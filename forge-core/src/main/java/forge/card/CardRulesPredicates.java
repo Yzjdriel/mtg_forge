@@ -371,22 +371,15 @@ public final class CardRulesPredicates {
             if (null == subject) {
                 return false;
             }
-            switch (this.op) {
-            case CountColors:
-                return subject.getColor().countColors() == this.color;
-            case CountColorsGreaterOrEqual:
-                return subject.getColor().countColors() >= this.color;
-            case Equals:
-                return subject.getColor().isEqual(this.color);
-            case HasAllOf:
-                return subject.getColor().hasAllColors(this.color);
-            case HasAnyOf:
-                return subject.getColor().hasAnyColor(this.color);
-            case CanCast:
-                return subject.canCastWithAvailable(this.color);
-            default:
-                return false;
-            }
+            return switch (this.op) {
+                case CountColors -> subject.getColor().countColors() == this.color;
+                case CountColorsGreaterOrEqual -> subject.getColor().countColors() >= this.color;
+                case Equals -> subject.getColor().isEqual(this.color);
+                case HasAllOf -> subject.getColor().hasAllColors(this.color);
+                case HasAnyOf -> subject.getColor().hasAnyColor(this.color);
+                case CanCast -> subject.canCastWithAvailable(this.color);
+                default -> false;
+            };
         }
     }
 
@@ -408,39 +401,31 @@ public final class CardRulesPredicates {
         @Override
         public boolean test(final CardRules card) {
             int value;
-            switch (this.field) {
-            case CMC:
-                return this.op(card.getManaCost().getCMC(), this.operand);
-            case GENERIC_COST:
-                return this.op(card.getManaCost().getGenericCost(), this.operand);
-            case POWER:
-                value = card.getIntPower();
-                return value != Integer.MAX_VALUE && this.op(value, this.operand);
-            case TOUGHNESS:
-                value = card.getIntToughness();
-                return value != Integer.MAX_VALUE && this.op(value, this.operand);
-            default:
-                return false;
-            }
+            return switch (this.field) {
+                case CMC -> this.op(card.getManaCost().getCMC(), this.operand);
+                case GENERIC_COST -> this.op(card.getManaCost().getGenericCost(), this.operand);
+                case POWER -> {
+                    value = card.getIntPower();
+                    yield value != Integer.MAX_VALUE && this.op(value, this.operand);
+                }
+                case TOUGHNESS -> {
+                    value = card.getIntToughness();
+                    yield value != Integer.MAX_VALUE && this.op(value, this.operand);
+                }
+                default -> false;
+            };
         }
 
         private boolean op(final int op1, final int op2) {
-            switch (this.operator) {
-            case EQUALS:
-                return op1 == op2;
-            case GREATER_THAN:
-                return op1 > op2;
-            case GT_OR_EQUAL:
-                return op1 >= op2;
-            case LESS_THAN:
-                return op1 < op2;
-            case LT_OR_EQUAL:
-                return op1 <= op2;
-            case NOT_EQUALS:
-                return op1 != op2;
-            default:
-                return false;
-            }
+            return switch (this.operator) {
+                case EQUALS -> op1 == op2;
+                case GREATER_THAN -> op1 > op2;
+                case GT_OR_EQUAL -> op1 >= op2;
+                case LESS_THAN -> op1 < op2;
+                case LT_OR_EQUAL -> op1 <= op2;
+                case NOT_EQUALS -> op1 != op2;
+                default -> false;
+            };
         }
     }
 

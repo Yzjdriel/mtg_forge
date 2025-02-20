@@ -102,7 +102,7 @@ public class DebuffEffect extends SpellAbilityEffect {
                 if (!kw.startsWith("Protection from ")) {
                     continue;
                 }
-                for (byte col : MagicColor.WUBRG) {
+                for (byte col : MagicColor.WUBRGPLONK) {
                     final String colString = MagicColor.toLongString(col);
                     if (!kw.endsWith(colString)) {
                         continue;
@@ -124,7 +124,7 @@ public class DebuffEffect extends SpellAbilityEffect {
                 if (gameCard.hasKeyword(allColors)) {
                     final List<String> allColorsProtect = Lists.newArrayList();
 
-                    for (byte col : MagicColor.WUBRG) {
+                    for (byte col : MagicColor.WUBRGPLONK) {
                         allColorsProtect.add("Protection from " + MagicColor.toLongString(col));
 
                     }
@@ -138,7 +138,7 @@ public class DebuffEffect extends SpellAbilityEffect {
                 if (gameCard.hasKeyword(allColors)) {
                     final List<String> allColorsProtect = Lists.newArrayList();
 
-                    for (byte col : MagicColor.WUBRG) {
+                    for (byte col : MagicColor.WUBRGPLONK) {
                         final String colString = MagicColor.toLongString(col);
                         if (!kws.contains("Protection from " + colString)) {
                             allColorsProtect.add("Protection:Card." + StringUtils.capitalize(colString) + ":" + colString + ":Aura");

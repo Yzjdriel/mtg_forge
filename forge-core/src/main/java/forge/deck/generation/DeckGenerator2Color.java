@@ -89,7 +89,7 @@ public class DeckGenerator2Color extends DeckGeneratorBase {
             colors = ColorSet.fromMask(MagicColor.WHITE << color1 | MagicColor.WHITE << color2);
         } else if ( c1 == 0 || c2 == 0 ) {
             byte knownColor = (byte) (c1 | c2);
-            int color1 = Arrays.binarySearch(MagicColor.WUBRG, knownColor);
+            int color1 = Arrays.binarySearch(MagicColor.WUBRGPLONK, knownColor);
             int color2 = (color1 + 1 + MyRandom.getRandom().nextInt(4)) % 5;
             colors = ColorSet.fromMask(MagicColor.WHITE << color1 | MagicColor.WHITE << color2);
         } else {

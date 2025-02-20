@@ -50,7 +50,7 @@ public class PlayerView extends GameEntityView {
     public PlayerView(final int id0, final Tracker tracker) {
         super(id0, tracker);
 
-        set(TrackableProperty.Mana, Maps.newHashMapWithExpectedSize(MagicColor.NUMBER_OR_COLORS + 1));
+        set(TrackableProperty.Mana, Maps.newHashMapWithExpectedSize(MagicColor.NUMBER_OF_COLORS + 1));
     }
 
     public boolean isAI()   {

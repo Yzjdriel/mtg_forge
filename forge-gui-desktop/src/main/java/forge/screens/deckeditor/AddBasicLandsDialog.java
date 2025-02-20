@@ -35,6 +35,7 @@ import forge.ImageCache;
 import forge.StaticData;
 import forge.card.CardEdition;
 import forge.card.CardRules;
+import forge.card.mana.ManaCost;
 import forge.card.mana.ManaCostShard;
 import forge.deck.CardPool;
 import forge.deck.Deck;
@@ -76,6 +77,11 @@ public class AddBasicLandsDialog {
     private final LandPanel pnlSwamp = new LandPanel("Swamp");
     private final LandPanel pnlMountain = new LandPanel("Mountain");
     private final LandPanel pnlForest = new LandPanel("Forest");
+    private final LandPanel pnlCave = new LandPanel("Cave");
+    private final LandPanel pnlTempest = new LandPanel("Tempest");
+    private final LandPanel pnlDune = new LandPanel("Dune");
+    private final LandPanel pnlValley = new LandPanel("Valley");
+    private final LandPanel pnlMeadow = new LandPanel("Meadow");
 
     private final FHtmlViewer lblDeckInfo = new FHtmlViewer();
 
@@ -101,6 +107,11 @@ public class AddBasicLandsDialog {
         panel.add(pnlSwamp);
         panel.add(pnlMountain);
         panel.add(pnlForest);
+        panel.add(pnlCave);
+        panel.add(pnlTempest);
+        panel.add(pnlDune);
+        panel.add(pnlValley);
+        panel.add(pnlMeadow);
         panel.add(lblDeckInfo);
 
         lblDeckInfo.setFont(FSkin.getRelativeFont(14));
@@ -113,12 +124,22 @@ public class AddBasicLandsDialog {
                 pnlSwamp.count = suggestionMap.get(ManaCostShard.BLACK);
                 pnlMountain.count = suggestionMap.get(ManaCostShard.RED);
                 pnlForest.count = suggestionMap.get(ManaCostShard.GREEN);
+                pnlCave.count = suggestionMap.get(ManaCostShard.PURPLE);
+                pnlTempest.count = suggestionMap.get(ManaCostShard.YELLOW);
+                pnlDune.count = suggestionMap.get(ManaCostShard.ORANGE);
+                pnlValley.count = suggestionMap.get(ManaCostShard.BROWN);
+                pnlMeadow.count = suggestionMap.get(ManaCostShard.PINK);
 
                 pnlPlains.lblCount.setText(String.valueOf(pnlPlains.count));
                 pnlIsland.lblCount.setText(String.valueOf(pnlIsland.count));
                 pnlSwamp.lblCount.setText(String.valueOf(pnlSwamp.count));
                 pnlMountain.lblCount.setText(String.valueOf(pnlMountain.count));
                 pnlForest.lblCount.setText(String.valueOf(pnlForest.count));
+                pnlCave.lblCount.setText(String.valueOf(pnlCave.count));
+                pnlTempest.lblCount.setText(String.valueOf(pnlTempest));
+                pnlDune.lblCount.setText(String.valueOf(pnlDune));
+                pnlValley.lblCount.setText(String.valueOf(pnlValley));
+                pnlMeadow.lblCount.setText(String.valueOf(pnlMeadow));
                 
                 updateDeckInfoLabel();
             }
@@ -132,6 +153,11 @@ public class AddBasicLandsDialog {
             pnlSwamp.refreshArtChoices();
             pnlMountain.refreshArtChoices();
             pnlForest.refreshArtChoices();
+            pnlCave.refreshArtChoices();
+            pnlTempest.refreshArtChoices();
+            pnlDune.refreshArtChoices();
+            pnlValley.refreshArtChoices();
+            pnlMeadow.refreshArtChoices();
         });
         cbLandSet.setSelectedItem(defaultLandSet);
 
@@ -141,6 +167,11 @@ public class AddBasicLandsDialog {
         int halfCountB = 0;
         int halfCountR = 0;
         int halfCountG = 0;
+        int halfCountP = 0;
+        int halfCountL = 0;
+        int halfCountO = 0;
+        int halfCountN = 0;
+        int halfCountK = 0;
         for (Entry<PaperCard, Integer> entry : deck.getMain()) {
             CardRules cardRules = entry.getKey().getRules();
             int count = entry.getValue();
@@ -187,24 +218,74 @@ public class AddBasicLandsDialog {
                         }
                         halfCountG += count;
                     }
+                    if (shard.isPurple()) {
+                        if (isMonoColor) {
+                            pnlCave.symbolCount += count;
+                            continue;
+                        }
+                        halfCountP += count;
+                    }
+                    if (shard.isYellow()) {
+                        if (isMonoColor) {
+                            pnlTempest.symbolCount += count;
+                            continue;
+                        }
+                        halfCountL += count;
+                    }
+                    if (shard.isOrange()) {
+                        if (isMonoColor) {
+                            pnlDune.symbolCount += count;
+                            continue;
+                        }
+                        halfCountO += count;
+                    }
+                    if (shard.isBrown()) {
+                        if (isMonoColor) {
+                            pnlValley.symbolCount += count;
+                            continue;
+                        }
+                        halfCountN += count;
+                    }
+                    if (shard.isPink()) {
+                        if (isMonoColor) {
+                            pnlMeadow.symbolCount += count;
+                            continue;
+                        }
+                        halfCountK += count;
+                    }
                 }
             }
 
             //only account for half shards if full shards exist for a given color
             if (pnlPlains.symbolCount > 0 && halfCountW > 0) {
-                pnlPlains.symbolCount += halfCountW * 0.5;
+                pnlPlains.symbolCount += (int) (halfCountW * 0.5);
             }
             if (pnlIsland.symbolCount > 0 && halfCountU > 0) {
-                pnlIsland.symbolCount += halfCountU * 0.5;
+                pnlIsland.symbolCount += (int) (halfCountU * 0.5);
             }
             if (pnlSwamp.symbolCount > 0 && halfCountB > 0) {
-                pnlSwamp.symbolCount += halfCountB * 0.5;
+                pnlSwamp.symbolCount += (int) (halfCountB * 0.5);
             }
             if (pnlMountain.symbolCount > 0 && halfCountR > 0) {
-                pnlMountain.symbolCount += halfCountR * 0.5;
+                pnlMountain.symbolCount += (int) (halfCountR * 0.5);
             }
             if (pnlForest.symbolCount > 0 && halfCountG > 0) {
-                pnlForest.symbolCount += halfCountG * 0.5;
+                pnlForest.symbolCount += (int) (halfCountG * 0.5);
+            }
+            if(pnlCave.symbolCount > 0 && halfCountP > 0) {
+                pnlCave.symbolCount += (int) (halfCountP * 0.5);
+            }
+            if(pnlTempest.symbolCount > 0 && halfCountL > 0) {
+                pnlTempest.symbolCount += (int) (halfCountL * 0.5);
+            }
+            if(pnlDune.symbolCount > 0 && halfCountO > 0) {
+                pnlDune.symbolCount += (int) (halfCountO * 0.5);
+            }
+            if(pnlValley.symbolCount > 0 && halfCountN > 0) {
+                pnlValley.symbolCount += (int) (halfCountN * 0.5);
+            }
+            if(pnlMeadow.symbolCount > 0 && halfCountK > 0) {
+                pnlMeadow.symbolCount += (int) (halfCountK * 0.5);
             }
         }
 
@@ -228,6 +309,11 @@ public class AddBasicLandsDialog {
             pnlSwamp.addToCardPool(landsToAdd);
             pnlMountain.addToCardPool(landsToAdd);
             pnlForest.addToCardPool(landsToAdd);
+            pnlCave.addToCardPool(landsToAdd);
+            pnlTempest.addToCardPool(landsToAdd);
+            pnlDune.addToCardPool(landsToAdd);
+            pnlValley.addToCardPool(landsToAdd);
+            pnlMeadow.addToCardPool(landsToAdd);
             return landsToAdd;
         }
         return null;
@@ -236,7 +322,8 @@ public class AddBasicLandsDialog {
     private void updateDeckInfoLabel() {
         int newLandCount = pnlPlains.count + pnlIsland.count + pnlSwamp.count + pnlMountain.count + pnlForest.count;
         int totalSymbolCount = pnlPlains.symbolCount + pnlIsland.symbolCount + pnlSwamp.symbolCount
-                + pnlMountain.symbolCount + pnlForest.symbolCount;
+                + pnlMountain.symbolCount + pnlForest.symbolCount + pnlCave.symbolCount + pnlTempest.symbolCount
+                + pnlDune.symbolCount + pnlValley.symbolCount + pnlMeadow.symbolCount;
         int newTotalCount = nonLandCount + oldLandCount + newLandCount;
         if (totalSymbolCount == 0) {
             totalSymbolCount = 1; //prevent divide by 0 error
@@ -256,7 +343,12 @@ public class AddBasicLandsDialog {
                             pnlIsland.symbolCount, (pnlIsland.symbolCount * 100 / totalSymbolCount),
                             pnlSwamp.symbolCount, (pnlSwamp.symbolCount * 100 / totalSymbolCount),
                             pnlMountain.symbolCount, (pnlMountain.symbolCount * 100 / totalSymbolCount),
-                            pnlForest.symbolCount, (pnlForest.symbolCount * 100 / totalSymbolCount)
+                            pnlForest.symbolCount, (pnlForest.symbolCount * 100 / totalSymbolCount),
+                            pnlCave.symbolCount, (pnlCave.symbolCount * 100 / totalSymbolCount),
+                            pnlTempest.symbolCount, (pnlTempest.symbolCount * 100 / totalSymbolCount),
+                            pnlDune.symbolCount, (pnlDune.symbolCount * 100 / totalSymbolCount),
+                            pnlValley.symbolCount, (pnlValley.symbolCount * 100 / totalSymbolCount),
+                            pnlMeadow.symbolCount, (pnlMeadow.symbolCount * 100 / totalSymbolCount)
                 );
         lblDeckInfo.setText(FSkin.encodeSymbols(infoLabel, false));
     }
@@ -293,7 +385,16 @@ public class AddBasicLandsDialog {
             pnlMountain.setBounds(x, y, panelWidth, panelHeight);
             x += panelWidth + padding;
             pnlForest.setBounds(x, y, panelWidth, panelHeight);
-
+            x += panelWidth + padding;
+            pnlCave.setBounds(x, y, panelWidth, panelHeight);
+            x += panelWidth + padding;
+            pnlTempest.setBounds(x, y, panelWidth, panelHeight);
+            x += panelWidth + padding;
+            pnlDune.setBounds(x, y, panelWidth, panelHeight);
+            x += panelWidth + padding;
+            pnlValley.setBounds(x, y, panelWidth, panelHeight);
+            x += panelWidth + padding;
+            pnlMeadow.setBounds(x, y, panelWidth, panelHeight);
             //layout info label
             x = padding;
             y += panelHeight + padding;

@@ -14,7 +14,7 @@ public class MessageUtil {
     public static String formatMessage(String message, Player player, Object related) {
         if (related instanceof Player && message.contains("{player")) {
             String noun = mayBeYou(player, related);
-            message = TextUtil.fastReplace(TextUtil.fastReplace(message, "{player}", noun),"{player's}", Lang.getInstance().getPossesive(noun));
+            message = TextUtil.fastReplace(TextUtil.fastReplace(message, "{player}", noun),"{player's}", Lang.getInstance().getPossessive(noun));
         }
         return message;
     }
@@ -22,7 +22,7 @@ public class MessageUtil {
     public static String formatMessage(String message, PlayerView player, Object related) {
         if (related instanceof PlayerView && message.contains("{player")) {
             String noun = mayBeYou(player, related);
-            message = TextUtil.fastReplace(TextUtil.fastReplace(message, "{player}", noun),"{player's}", Lang.getInstance().getPossesive(noun));
+            message = TextUtil.fastReplace(TextUtil.fastReplace(message, "{player}", noun),"{player's}", Lang.getInstance().getPossessive(noun));
         }
         return message;
     }
@@ -61,7 +61,7 @@ public class MessageUtil {
             case FlipACoin:
                 String flipper = StringUtils.capitalize(mayBeYou(player, target));
                 return sa.hasParam("NoCall")
-                        ? Localizer.getInstance().getMessage("lblPlayerFlipComesUpValue", Lang.getInstance().getPossesive(flipper), value)
+                        ? Localizer.getInstance().getMessage("lblPlayerFlipComesUpValue", Lang.getInstance().getPossessive(flipper), value)
                         : Localizer.getInstance().getMessage("lblPlayerActionFlip", flipper, Lang.joinVerb(flipper, value));
             case GenericChoice:
                 if ((sa.hasParam("Secretly")) || 

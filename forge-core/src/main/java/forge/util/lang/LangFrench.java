@@ -14,7 +14,7 @@ public class LangFrench extends Lang {
     }
 
     @Override
-    public String getPossesive(final String name) {
+    public String getPossessive(final String name) {
         if ("Vous".equalsIgnoreCase(name)) {
             return name;
         }
@@ -24,9 +24,9 @@ public class LangFrench extends Lang {
     @Override
     public String getPossessedObject(final String owner, final String object) {
         if ("Vous".equalsIgnoreCase(owner)) {
-            return getPossesive(owner) + " " + object;
+            return getPossessive(owner) + " " + object;
         }
-        return object + " " + getPossesive(owner);
+        return object + " " + getPossessive(owner);
     }
 
 }

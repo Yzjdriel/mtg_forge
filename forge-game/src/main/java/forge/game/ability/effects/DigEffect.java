@@ -52,7 +52,7 @@ public class DigEffect extends SpellAbilityEffect {
                 sb.append("their ");
             } else {
                 for (final Player p : tgtPlayers) {
-                    sb.append(Lang.getInstance().getPossesive(p.getName())).append(" ");
+                    sb.append(Lang.getInstance().getPossessive(p.getName())).append(" ");
                 }
             }
             sb.append("library.");

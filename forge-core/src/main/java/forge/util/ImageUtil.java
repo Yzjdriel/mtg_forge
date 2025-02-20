@@ -142,6 +142,26 @@ public class ImageUtil {
             if (card.getGSpecialize() != null) {
                 return card.getGSpecialize().getName();
             }
+        } else if (face.equals("purple")) {
+            if (card.getPSpecialize() != null) {
+                return card.getGSpecialize().getName();
+            }
+        } else if (face.equals("yellow")) {
+            if (card.getLSpecialize() != null) {
+                return card.getGSpecialize().getName();
+            }
+        } else if (face.equals("orange")) {
+            if (card.getOSpecialize() != null) {
+                return card.getGSpecialize().getName();
+            }
+        } else if (face.equals("brown")) {
+            if (card.getNSpecialize() != null) {
+                return card.getGSpecialize().getName();
+            }
+        } else if (face.equals("pink")) {
+            if (card.getKSpecialize() != null) {
+                return card.getGSpecialize().getName();
+            }
         } else if (CardSplitType.Split == cp.getRules().getSplitType()) {
             return card.getMainPart().getName() + card.getOtherPart().getName();
         } else if (!IPaperCard.NO_FUNCTIONAL_VARIANT.equals(cp.getFunctionalVariant())) {

@@ -342,7 +342,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
 
     private String overlayText = null;
 
-    private SpellAbility[] basicLandAbilities = new SpellAbility[MagicColor.WUBRG.length];
+    private SpellAbility[] basicLandAbilities = new SpellAbility[MagicColor.WUBRGPLONK.length];
 
     private int planeswalkerAbilityActivated;
     private boolean planeswalkerActivationLimitUsed;
@@ -3589,8 +3589,8 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
             return;
         }
 
-        for (int i = 0; i < MagicColor.WUBRG.length; i++ ) {
-            byte c = MagicColor.WUBRG[i];
+        for (int i = 0; i < MagicColor.WUBRGPLONK.length; i++ ) {
+            byte c = MagicColor.WUBRGPLONK[i];
             if (type.hasSubtype(MagicColor.Constant.BASIC_LANDS.get(i))) {
                 SpellAbility sa = basicLandAbilities[i];
 
@@ -6084,7 +6084,7 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
         if (c1 == null) {
             return false;
         }
-        return getType().sharesCreaturetypeWith(c1.getType());
+        return getType().sharesCreatureTypeWith(c1.getType());
     }
 
     public final boolean sharesLandTypeWith(final Card c1) {
@@ -6481,14 +6481,29 @@ public class Card extends GameEntity implements Comparable<Card>, IHasSVars, ITr
             case SpecializeR:
                 setImageKey(ipc.getCardRSpecImageKey());
                 break;
+            case SpecializeN:
+                setImageKey(ipc.getCardNSpecImageKey());
+                break;
             case SpecializeG:
                 setImageKey(ipc.getCardGSpecImageKey());
                 break;
             case SpecializeU:
                 setImageKey(ipc.getCardUSpecImageKey());
                 break;
+            case SpecializeO:
+                setImageKey(ipc.getCardOSpecImageKey());
+                break;
+            case SpecializeK:
+                setImageKey(ipc.getCardKSpecImageKey());
+                break;
+            case SpecializeP:
+                setImageKey(ipc.getCardPSpecImageKey());
+                break;
             case SpecializeW:
                 setImageKey(ipc.getCardWSpecImageKey());
+                break;
+            case SpecializeL:
+                setImageKey(ipc.getCardLSpecImageKey());
                 break;
             default:
                 break;

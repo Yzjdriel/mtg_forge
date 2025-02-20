@@ -44,12 +44,12 @@ public class EnumMapToAmount<T extends Enum<T>> extends EnumMap<T, Integer> impl
     }
 
     @Override
-    public boolean substract(T item) {
-        return substract(item, 1);
+    public boolean subtract(T item) {
+        return subtract(item, 1);
     }
 
     @Override
-    public boolean substract(T item, int amount) {
+    public boolean subtract(T item, int amount) {
         Integer cur = get(item);
         if (cur == null) { return false; }
         int newVal = cur - amount;
@@ -63,9 +63,9 @@ public class EnumMapToAmount<T extends Enum<T>> extends EnumMap<T, Integer> impl
     }
 
     @Override
-    public void substractAll(Iterable<T> items) {
+    public void subtractAll(Iterable<T> items) {
         for (T i : items) {
-            substract(i);
+            subtract(i);
         }
     }
 

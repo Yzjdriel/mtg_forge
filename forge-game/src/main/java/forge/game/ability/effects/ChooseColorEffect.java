@@ -59,7 +59,7 @@ public class ChooseColorEffect extends SpellAbilityEffect {
                 prompt = Localizer.getInstance().getMessage("lblChooseAColor");
             } else {
                 if (cntMax > cntMin) {
-                    if (cntMax >= MagicColor.NUMBER_OR_COLORS) {
+                    if (cntMax >= MagicColor.NUMBER_OF_COLORS) {
                         prompt = Localizer.getInstance().getMessage("lblAtLastChooseNumColors", Lang.getNumeral(cntMin));
                     } else {
                         prompt = Localizer.getInstance().getMessage("lblChooseSpecifiedRangeColors", Lang.getNumeral(cntMin), Lang.getNumeral(cntMax));

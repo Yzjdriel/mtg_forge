@@ -38,8 +38,8 @@ public class PlayLandVariantEffect extends SpellAbilityEffect {
         }
         // find basic lands that can produce mana of one of the card's colors
         final List<String> landNames = Lists.newArrayList();
-        for (byte i = 0; i < MagicColor.WUBRG.length; i++) {
-            if (color.hasAnyColor(MagicColor.WUBRG[i])) {
+        for (byte i = 0; i < MagicColor.WUBRGPLONK.length; i++) {
+            if (color.hasAnyColor(MagicColor.WUBRGPLONK[i])) {
                 landNames.add(MagicColor.Constant.BASIC_LANDS.get(i));
                 landNames.add(MagicColor.Constant.SNOW_LANDS.get(i));
             }

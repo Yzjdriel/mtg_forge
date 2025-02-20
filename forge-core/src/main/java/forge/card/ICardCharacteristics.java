@@ -15,6 +15,7 @@ public interface ICardCharacteristics {
     String getPower();
     String getToughness();
     String getInitialLoyalty();
+    String getInitialStability();
     String getDefense();
     Set<Integer> getAttractionLights();
 

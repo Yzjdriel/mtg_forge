@@ -38,6 +38,11 @@ public interface IPaperCard extends InventoryItem, Serializable {
     String getCardBSpecImageKey();
     String getCardRSpecImageKey();
     String getCardGSpecImageKey();
+    String getCardPSpecImageKey();
+    String getCardLSpecImageKey();
+    String getCardOSpecImageKey();
+    String getCardNSpecImageKey();
+    String getCardKSpecImageKey();
 
     boolean isRebalanced();
 

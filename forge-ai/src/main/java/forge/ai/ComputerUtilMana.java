@@ -408,7 +408,7 @@ public class ComputerUtilMana {
                 String m = saMana.getParam("ReplaceMana");
                 if ("Any".equals(m)) {
                     byte rs = MagicColor.GREEN;
-                    for (byte c : MagicColor.WUBRGC) {
+                    for (byte c : MagicColor.WUBRGPLONKC) {
                         if (toPay.canBePaidWithManaOfColor(c)) {
                             rs = c;
                             break;
@@ -430,7 +430,7 @@ public class ComputerUtilMana {
                     String color = saMana.getParam("ReplaceType");
                     if ("Any".equals(color)) {
                         byte rs = MagicColor.GREEN;
-                        for (byte c : MagicColor.WUBRGC) {
+                        for (byte c : MagicColor.WUBRGPLONKC) {
                             if (toPay.canBePaidWithManaOfColor(c)) {
                                 rs = c;
                                 break;
@@ -438,7 +438,7 @@ public class ComputerUtilMana {
                         }
                         color = MagicColor.toShortString(rs);
                     }
-                    for (byte c : MagicColor.WUBRGC) {
+                    for (byte c : MagicColor.WUBRGPLONKC) {
                         String s = MagicColor.toShortString(c);
                         manaProduced = manaProduced.replace(s, color);
                     }
@@ -453,7 +453,7 @@ public class ComputerUtilMana {
                     if (saMana.hasParam("ReplaceOnly")) {
                         manaProduced = manaProduced.replace(saMana.getParam("ReplaceOnly"), color);
                     } else {
-                        for (byte c : MagicColor.WUBRG) {
+                        for (byte c : MagicColor.WUBRGPLONK) {
                             String s = MagicColor.toShortString(c);
                             manaProduced = manaProduced.replace(s, color);
                         }
@@ -912,7 +912,7 @@ public class ComputerUtilMana {
         else if (saPayment.getApi() == ApiType.ManaReflected) {
             Set<String> reflected = CardUtil.getReflectableManaColors(saPayment);
 
-            for (byte c : MagicColor.WUBRGC) {
+            for (byte c : MagicColor.WUBRGPLONKC) {
                 if (ai.getManaPool().canPayForShardWithColor(toPay, c) && reflected.contains(MagicColor.toLongString(c))) {
                     m.setExpressChoice(MagicColor.toShortString(c));
                     return;
@@ -924,7 +924,7 @@ public class ComputerUtilMana {
             if (toPay.isOr2Generic())
                 colorChoice = toPay.getColorMask();
             else {
-                for (byte c : MagicColor.WUBRG) {
+                for (byte c : MagicColor.WUBRGPLONK) {
                     if (ai.getManaPool().canPayForShardWithColor(toPay, c)) {
                         colorChoice = c;
                         break;
@@ -981,7 +981,7 @@ public class ComputerUtilMana {
         if (ma.getApi() == ApiType.ManaReflected) {
             Set<String> reflected = CardUtil.getReflectableManaColors(ma);
 
-            for (byte c : MagicColor.WUBRGC) {
+            for (byte c : MagicColor.WUBRGPLONKC) {
                 if (toPay == ManaCostShard.COLORED_X && !ManaCostBeingPaid.canColoredXShardBePaidByColor(MagicColor.toShortString(c), xManaCostPaidByColor)) {
                     continue;
                 }
@@ -1604,7 +1604,7 @@ public class ComputerUtilMana {
                         if (reList.isEmpty()) {
                             Set<String> reflectedColors = CardUtil.getReflectableManaColors(m);
                             // find possible colors
-                            for (byte color : MagicColor.WUBRG) {
+                            for (byte color : MagicColor.WUBRGPLONK) {
                                 if (tail.canThisProduce(MagicColor.toShortString(color)) || reflectedColors.contains(MagicColor.toLongString(color))) {
                                     manaMap.put((int)color, m);
                                 }
@@ -1624,7 +1624,7 @@ public class ComputerUtilMana {
                                     replaced = o.getParam("ReplaceMana");
                                 } else if (o.hasParam("ReplaceType")) {
                                     String color = o.getParam("ReplaceType");
-                                    for (byte c : MagicColor.WUBRGC) {
+                                    for (byte c : MagicColor.WUBRGPLONKC) {
                                         String s = MagicColor.toShortString(c);
                                         replaced = replaced.replace(s, color);
                                     }
@@ -1633,14 +1633,14 @@ public class ComputerUtilMana {
                                     if (o.hasParam("ReplaceOnly")) {
                                         replaced = replaced.replace(o.getParam("ReplaceOnly"), color);
                                     } else {
-                                        for (byte c : MagicColor.WUBRG) {
+                                        for (byte c : MagicColor.WUBRGPLONK) {
                                             String s = MagicColor.toShortString(c);
                                             replaced = replaced.replace(s, color);
                                         }
                                     }
                                 }
 
-                                for (byte color : MagicColor.WUBRG) {
+                                for (byte color : MagicColor.WUBRGPLONK) {
                                     if ("Any".equals(replaced) || replaced.contains(MagicColor.toShortString(color))) {
                                         manaMap.put((int)color, m);
                                     }

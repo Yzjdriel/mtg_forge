@@ -318,6 +318,21 @@ public abstract class DeckGeneratorBase {
             else if ((profile & MagicColor.GREEN) != 0) {
                 increment(res, MagicColor.Constant.BASIC_LANDS.get(4), cpe.getValue());
             }
+            else if ((profile & MagicColor.PURPLE) != 0) {
+                increment(res, MagicColor.Constant.BASIC_LANDS.get(5), cpe.getValue());
+            }
+            else if ((profile & MagicColor.YELLOW) != 0) {
+                increment(res, MagicColor.Constant.BASIC_LANDS.get(6), cpe.getValue());
+            }
+            else if ((profile & MagicColor.ORANGE) != 0) {
+                increment(res, MagicColor.Constant.BASIC_LANDS.get(7), cpe.getValue());
+            }
+            else if ((profile & MagicColor.BROWN) != 0) {
+                increment(res, MagicColor.Constant.BASIC_LANDS.get(8), cpe.getValue());
+            }
+            else if ((profile & MagicColor.PINK) != 0) {
+                increment(res, MagicColor.Constant.BASIC_LANDS.get(9), cpe.getValue());
+            }
         }
         return res;
     }
@@ -345,7 +360,7 @@ public abstract class DeckGeneratorBase {
         public boolean test(CardRules subject) {
             ManaCost mc = subject.getManaCost();
             return !mc.isPureGeneric() && allowedColor.containsAllColorsFrom(subject.getColorIdentity().getColor());
-            //return  mc.canBePaidWithAvaliable(allowedColor);
+            //return  mc.canBePaidWithAvailable(allowedColor);
             // return allowedColor.containsAllColorsFrom(mc.getColorProfile());
         }
     }
@@ -391,10 +406,10 @@ public abstract class DeckGeneratorBase {
         Predicate<CardRules> exceptBasicLand = CardRulesPredicates.NOT_BASIC_LAND;
 
         Iterable<PaperCard> landCards = pool.getAllCards(PaperCardPredicates.fromRules(dualLandFilter.and(exceptBasicLand).and(canPlay)));
-        Iterable<String> dualLandPatterns = Arrays.asList("Add \\{([WUBRG])\\} or \\{([WUBRG])\\}",
-                "Add \\{([WUBRG])\\}, \\{([WUBRG])\\}, or \\{([WUBRG])\\}",
-                "Add \\{([WUBRG])\\}\\{([WUBRG])\\}",
-                "Add \\{[WUBRG]\\}\\{[WUBRG]\\}, \\{([WUBRG])\\}\\{([WUBRG])\\}, or \\{[WUBRG]\\}\\{[WUBRG]\\}");
+        Iterable<String> dualLandPatterns = Arrays.asList("Add \\{([WUBRGPLONK])\\} or \\{([WUBRGPLONK])\\}",
+                "Add \\{([WUBRGPLONK])\\}, \\{([WUBRGPLONK])\\}, or \\{([WUBRGPLONK])\\}",
+                "Add \\{([WUBRGPLONK])\\}\\{([WUBRGPLONK])\\}",
+                "Add \\{[WUBRGPLONK]\\}\\{[WUBRGPLONK]\\}, \\{([WUBRGPLONK])\\}\\{([WUBRGPLONK])\\}, or \\{[WUBRGPLONK]\\}\\{[WUBRGPLONK]\\}");
         for (String pattern:dualLandPatterns) {
             regexLandSearch(pattern, landCards);
         }
@@ -431,6 +446,11 @@ public abstract class DeckGeneratorBase {
         colorLookup.put("Mountain","R");
         colorLookup.put("Island","U");
         colorLookup.put("Swamp","B");
+        colorLookup.put("Cave", "P");
+        colorLookup.put("Tempest", "L");
+        colorLookup.put("Dune", "O");
+        colorLookup.put("Valley", "N");
+        colorLookup.put("Meadow", "K");
         Pattern p = Pattern.compile(fetchPattern);
         for (PaperCard card:landCards) {
             Matcher matcher = p.matcher(card.getRules().getOracleText());

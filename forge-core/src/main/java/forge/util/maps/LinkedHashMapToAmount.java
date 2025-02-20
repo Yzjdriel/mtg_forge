@@ -67,12 +67,12 @@ public class LinkedHashMapToAmount<T> extends LinkedHashMap<T, Integer> implemen
     }
 
     @Override
-    public boolean substract(final T item) {
-        return substract(item, 1);
+    public boolean subtract(final T item) {
+        return subtract(item, 1);
     }
 
     @Override
-    public boolean substract(final T item, final int amount) {
+    public boolean subtract(final T item, final int amount) {
         Integer cur = get(item);
         if (cur == null) { return false; }
         int newVal = cur - amount;
@@ -85,9 +85,9 @@ public class LinkedHashMapToAmount<T> extends LinkedHashMap<T, Integer> implemen
     }
 
     @Override
-    public void substractAll(final Iterable<T> items) {
+    public void subtractAll(final Iterable<T> items) {
         for (T i : items) {
-            substract(i);
+            subtract(i);
         }
     }
 

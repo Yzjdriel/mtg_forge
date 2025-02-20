@@ -65,6 +65,11 @@ public final class CardRules implements ICardCharacteristics {
             specializedParts.put(CardStateName.SpecializeB, faces[4]);
             specializedParts.put(CardStateName.SpecializeR, faces[5]);
             specializedParts.put(CardStateName.SpecializeG, faces[6]);
+            specializedParts.put(CardStateName.SpecializeP, faces[7]);
+            specializedParts.put(CardStateName.SpecializeL, faces[8]);
+            specializedParts.put(CardStateName.SpecializeO, faces[9]);
+            specializedParts.put(CardStateName.SpecializeN, faces[10]);
+            specializedParts.put(CardStateName.SpecializeK, faces[11]);
         }
 
         aiHints = cah;
@@ -131,6 +136,11 @@ public final class CardRules implements ICardCharacteristics {
                             case('B'): res |= MagicColor.BLACK; break;
                             case('R'): res |= MagicColor.RED; break;
                             case('G'): res |= MagicColor.GREEN; break;
+                            case('P'): res |= MagicColor.PURPLE; break;
+                            case('L'): res |= MagicColor.YELLOW; break;
+                            case('O'): res |= MagicColor.ORANGE; break;
+                            case('N'): res |= MagicColor.BROWN; break;
+                            case('K'): res |= MagicColor.PINK; break;
                         }
                     }
                     break;
@@ -180,14 +190,17 @@ public final class CardRules implements ICardCharacteristics {
     public ICardFace getGSpecialize() {
         return specializedParts.get(CardStateName.SpecializeG);
     }
+    public ICardFace getPSpecialize() { return specializedParts.get(CardStateName.SpecializeP); }
+    public ICardFace getLSpecialize() { return specializedParts.get(CardStateName.SpecializeL); }
+    public ICardFace getOSpecialize() { return specializedParts.get(CardStateName.SpecializeO); }
+    public ICardFace getNSpecialize() { return specializedParts.get(CardStateName.SpecializeN); }
+    public ICardFace getKSpecialize() { return specializedParts.get(CardStateName.SpecializeK); }
 
     public String getName() {
-        switch (splitType.getAggregationMethod()) {
-            case COMBINE:
-                return mainPart.getName() + " // " + otherPart.getName();
-            default:
-                return mainPart.getName();
-        }
+        return switch (splitType.getAggregationMethod()) {
+            case COMBINE -> mainPart.getName() + " // " + otherPart.getName();
+            default -> mainPart.getName();
+        };
     }
 
     public String getNormalizedName() { return normalizedName; }
@@ -202,32 +215,26 @@ public final class CardRules implements ICardCharacteristics {
 
     @Override
     public CardType getType() {
-        switch (splitType.getAggregationMethod()) {
-            case COMBINE: // no cards currently have different types
-                return CardType.combine(mainPart.getType(), otherPart.getType());
-            default:
-                return mainPart.getType();
-        }
+        return switch (splitType.getAggregationMethod()) {
+            case COMBINE -> CardType.combine(mainPart.getType(), otherPart.getType());// no cards currently have different types
+            default -> mainPart.getType();
+        };
     }
 
     @Override
     public ManaCost getManaCost() {
-        switch (splitType.getAggregationMethod()) {
-            case COMBINE:
-                return ManaCost.combine(mainPart.getManaCost(), otherPart.getManaCost());
-            default:
-                return mainPart.getManaCost();
-        }
+        return switch (splitType.getAggregationMethod()) {
+            case COMBINE -> ManaCost.combine(mainPart.getManaCost(), otherPart.getManaCost());
+            default -> mainPart.getManaCost();
+        };
     }
 
     @Override
     public ColorSet getColor() {
-        switch (splitType.getAggregationMethod()) {
-            case COMBINE:
-                return ColorSet.fromMask(mainPart.getColor().getColor() | otherPart.getColor().getColor());
-            default:
-                return mainPart.getColor();
-        }
+        return switch (splitType.getAggregationMethod()) {
+            case COMBINE -> ColorSet.fromMask(mainPart.getColor().getColor() | otherPart.getColor().getColor());
+            default -> mainPart.getColor();
+        };
     }
 
     private static boolean canCastFace(final ICardFace face, final byte colorCode) {
@@ -239,12 +246,10 @@ public final class CardRules implements ICardCharacteristics {
     }
 
     public boolean canCastWithAvailable(byte colorCode) {
-        switch (splitType.getAggregationMethod()) {
-            case COMBINE:
-                return canCastFace(mainPart, colorCode) || canCastFace(otherPart, colorCode);
-            default:
-                return canCastFace(mainPart, colorCode);
-        }
+        return switch (splitType.getAggregationMethod()) {
+            case COMBINE -> canCastFace(mainPart, colorCode) || canCastFace(otherPart, colorCode);
+            default -> canCastFace(mainPart, colorCode);
+        };
     }
 
     @Override public int getIntPower() { return mainPart.getIntPower(); }
@@ -252,6 +257,7 @@ public final class CardRules implements ICardCharacteristics {
     @Override public String getPower() { return mainPart.getPower(); }
     @Override public String getToughness() { return mainPart.getToughness(); }
     @Override public String getInitialLoyalty() { return mainPart.getInitialLoyalty(); }
+    @Override public String getInitialStability() { return mainPart.getInitialStability(); }
 
     @Override
     public String getDefense() {
@@ -262,12 +268,10 @@ public final class CardRules implements ICardCharacteristics {
 
     @Override
     public String getOracleText() {
-        switch (splitType.getAggregationMethod()) {
-            case COMBINE:
-                return mainPart.getOracleText() + "\r\n\r\n" + otherPart.getOracleText();
-            default:
-                return mainPart.getOracleText();
-        }
+        return switch (splitType.getAggregationMethod()) {
+            case COMBINE -> mainPart.getOracleText() + "\r\n\r\n" + otherPart.getOracleText();
+            default -> mainPart.getOracleText();
+        };
     }
 
     public boolean isEnterableDungeon() {

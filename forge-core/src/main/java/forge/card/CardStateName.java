@@ -17,7 +17,12 @@ public enum CardStateName {
     SpecializeU,
     SpecializeB,
     SpecializeR,
-    SpecializeG
+    SpecializeG,
+    SpecializeP,
+    SpecializeL,
+    SpecializeO,
+    SpecializeN,
+    SpecializeK
 
     ;
 
@@ -33,9 +38,9 @@ public enum CardStateName {
         if ("All".equals(value)) {
             return null;
         }
-        final String valToCompate = value.trim();
+        final String valToCompare = value.trim();
         for (final CardStateName v : CardStateName.values()) {
-            if (v.name().compareToIgnoreCase(valToCompate) == 0) {
+            if (v.name().compareToIgnoreCase(valToCompare) == 0) {
                 return v;
             }
         }
@@ -46,6 +51,6 @@ public enum CardStateName {
             return CardStateName.Transformed;
         }
 
-        throw new IllegalArgumentException("No element named " + value + " in enum CardCharactersticName");
+        throw new IllegalArgumentException("No element named " + value + " in enum CardCharacteristicName");
     }
 }

@@ -22,7 +22,7 @@ public class FullDeckColors extends DeckColors {
             return;
         }
 
-        for (final byte color : MagicColor.WUBRG) {
+        for (final byte color : MagicColor.WUBRGPLONK) {
             if (toAdd.hasAnyColor(color)) {
                 colorMask |= color;
                 chosen = null; // invalidate color set

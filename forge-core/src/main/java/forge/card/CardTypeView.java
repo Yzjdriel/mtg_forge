@@ -26,7 +26,7 @@ public interface CardTypeView extends Iterable<String>, Serializable {
     boolean hasABasicLandType();
     boolean hasANonBasicLandType();
 
-    public boolean sharesCreaturetypeWith(final CardTypeView ctOther);
+    public boolean sharesCreatureTypeWith(final CardTypeView ctOther);
     public boolean sharesLandTypeWith(final CardTypeView ctOther);
     public boolean sharesPermanentTypeWith(final CardTypeView ctOther);
     public boolean sharesCardTypeWith(final CardTypeView ctOther);
@@ -35,6 +35,7 @@ public interface CardTypeView extends Iterable<String>, Serializable {
     boolean isPermanent();
     boolean isCreature();
     boolean isPlaneswalker();
+    boolean isStructure();
     boolean isBattle();
     boolean isLand();
     boolean isArtifact();

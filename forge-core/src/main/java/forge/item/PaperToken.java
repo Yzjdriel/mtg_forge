@@ -73,6 +73,11 @@ public class PaperToken implements InventoryItemFromSet, IPaperCard {
             if (colors.hasBlack()) color += "B";
             if (colors.hasRed()) color += "R";
             if (colors.hasGreen()) color += "G";
+            if (colors.hasPurple()) color += "P";
+            if (colors.hasYellow()) color += "L";
+            if (colors.hasOrange()) color += "O";
+            if (colors.hasBrown()) color += "N";
+            if (colors.hasPink()) color += "K";
 
             build.add(color);
         }
@@ -255,6 +260,21 @@ public class PaperToken implements InventoryItemFromSet, IPaperCard {
     public String getCardGSpecImageKey() {
         return getImageKey(false);
     }
+
+    @Override
+    public String getCardPSpecImageKey() { return getImageKey(false); }
+
+    @Override
+    public String getCardLSpecImageKey() { return getImageKey(false); }
+
+    @Override
+    public String getCardOSpecImageKey() { return getImageKey(false); }
+
+    @Override
+    public String getCardNSpecImageKey() { return getImageKey(false); }
+
+    @Override
+    public String getCardKSpecImageKey() { return getImageKey(false); }
 
     // InventoryItem
     @Override

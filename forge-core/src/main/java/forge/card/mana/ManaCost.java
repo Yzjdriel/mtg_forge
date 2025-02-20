@@ -168,10 +168,10 @@ public final class ManaCost implements Comparable<ManaCost>, Iterable<ManaCostSh
     /**
      * Gets the amount of color shards in the card's mana cost.
      * 
-     * @return an array of five integers containing the amount of color shards in the card's mana cost in WUBRG order 
+     * @return an array of 10 integers containing the amount of color shards in the card's mana cost in WUBRGPLONK order
      */
     public int[] getColorShardCounts() {
-        int[] counts = new int[6]; // in WUBRGC order
+        int[] counts = new int[11]; // in WUBRGPLONKC order
 
         for (int i = 0; i < stringValue.length(); i++) {
             char symbol = stringValue.charAt(i);
@@ -181,6 +181,11 @@ public final class ManaCost implements Comparable<ManaCost>, Iterable<ManaCostSh
                 case 'B':
                 case 'R':
                 case 'G':
+                case 'P':
+                case 'L':
+                case 'O':
+                case 'N':
+                case 'K':
                 case 'C':
                     counts[ManaAtom.getIndexOfFirstManaType(ManaAtom.fromName(symbol))]++;
                     break;

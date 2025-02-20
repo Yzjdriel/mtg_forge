@@ -8,23 +8,31 @@ import com.google.common.collect.ImmutableList;
 public final class MagicColor {
 
     // Colorless value synchronized with value in ManaAtom
-    public static final byte WHITE     = 1 << 0;
-    public static final byte BLUE      = 1 << 1;
-    public static final byte BLACK     = 1 << 2;
-    public static final byte RED       = 1 << 3;
-    public static final byte GREEN     = 1 << 4;
+    public static final byte WHITE     = (byte) (1 << 0);//we're explicitly casting stuff that doesn't need to be cast for the sake of symmetry
+    public static final byte BLUE      = (byte) (1 << 1);
+    public static final byte BLACK     = (byte) (1 << 2);
+    public static final byte RED       = (byte) (1 << 3);
+    public static final byte GREEN     = (byte) (1 << 4);
+    public static final byte PURPLE    = (byte) (1 << 5);
+    public static final byte YELLOW    = (byte) (1 << 6);
+    public static final byte ORANGE    = (byte) (1 << 7);
+    public static final byte BROWN     = (byte) (1 << 8);
+    public static final byte PINK      = (byte) (1 << 9);
     // Colorless values for MagicColor needs to be the absence of any color
     // Any comparison between colorless cards and colorless mana need to be adjusted appropriately.
     public static final byte COLORLESS = 0;
 
-    public static final byte ALL_COLORS = WHITE | BLUE | BLACK | RED | GREEN;
+    public static final byte ALL_COLORS = WHITE | BLUE | BLACK | RED | GREEN | PURPLE | YELLOW | ORANGE | BROWN | PINK;
 
-    public static final int NUMBER_OR_COLORS = 5;
+    public static final int NUMBER_OF_COLORS = 10;
 
-    public static final byte[] WUBRG  = new byte[] { WHITE, BLUE, BLACK, RED, GREEN };
-    public static final byte[] WUBRGC = new byte[] { WHITE, BLUE, BLACK, RED, GREEN, COLORLESS };
+    public static final byte[] WUBRGPLONK = new byte[] { WHITE, BLUE, BLACK, RED, GREEN, PURPLE, YELLOW, ORANGE, BROWN, PINK };
+    public static final byte[] WUBRGPLONKC = new byte[] { WHITE, BLUE, BLACK, RED, GREEN, PURPLE, YELLOW, ORANGE, BROWN, PINK, COLORLESS };
     public static final byte[] COLORPAIR  = new byte[] { WHITE | BLUE, BLUE | BLACK, BLACK | RED, RED | GREEN, GREEN | WHITE,
-            WHITE | BLACK, BLUE | RED, BLACK | GREEN, RED | WHITE, GREEN | BLUE };
+            WHITE | BLACK, BLUE | RED, BLACK | GREEN, RED | WHITE, GREEN | BLUE, PURPLE | YELLOW, YELLOW | ORANGE, ORANGE | BROWN, BROWN | PINK, PINK | PURPLE,
+            PURPLE | ORANGE, YELLOW | BROWN, ORANGE | PINK, BROWN | PURPLE, PINK | YELLOW, WHITE | PURPLE, WHITE | YELLOW, WHITE | ORANGE, WHITE | BROWN, WHITE | PINK,
+            BLUE | PURPLE, BLUE | YELLOW, BLUE | ORANGE, BLUE | BROWN, BLUE | PINK, BLACK | PURPLE, BLACK | YELLOW, BLACK | ORANGE, BLACK | BROWN, BLACK | PINK,
+            RED | PURPLE, RED | YELLOW, RED | ORANGE, RED | BROWN, RED | PINK, GREEN | PURPLE, GREEN | YELLOW, GREEN | ORANGE, GREEN | BROWN, GREEN | PINK};//adding PLONK is a PITA, bro
 
     /**
      * Private constructor to prevent instantiation.
@@ -50,6 +58,11 @@ public final class MagicColor {
                 case "b": return MagicColor.BLACK;
                 case "r": return MagicColor.RED;
                 case "g": return MagicColor.GREEN;
+                case "p": return MagicColor.PURPLE;
+                case "l": return MagicColor.YELLOW;
+                case "o": return MagicColor.ORANGE;
+                case "n": return MagicColor.BROWN;
+                case "k": return MagicColor.PINK;
                 case "c": return MagicColor.COLORLESS;
             }
         } else {
@@ -59,6 +72,11 @@ public final class MagicColor {
                 case Constant.BLACK: return MagicColor.BLACK;
                 case Constant.RED: return MagicColor.RED;
                 case Constant.GREEN: return MagicColor.GREEN;
+                case Constant.PURPLE: return MagicColor.PURPLE;
+                case Constant.YELLOW: return MagicColor.YELLOW;
+                case Constant.ORANGE: return MagicColor.ORANGE;
+                case Constant.BROWN: return MagicColor.BROWN;
+                case Constant.PINK: return MagicColor.PINK;
                 case Constant.COLORLESS: return MagicColor.COLORLESS;
             }
         }
@@ -66,14 +84,19 @@ public final class MagicColor {
     }
 
     public static byte fromName(final char c) {
-        switch (Character.toLowerCase(c)) {
-            case 'w': return MagicColor.WHITE;
-            case 'u': return MagicColor.BLUE;
-            case 'b': return MagicColor.BLACK;
-            case 'r': return MagicColor.RED;
-            case 'g': return MagicColor.GREEN;
-        }
-        return 0; // unknown means 'colorless'
+        return switch (Character.toLowerCase(c)) {
+            case 'w' -> MagicColor.WHITE;
+            case 'u' -> MagicColor.BLUE;
+            case 'b' -> MagicColor.BLACK;
+            case 'r' -> MagicColor.RED;
+            case 'g' -> MagicColor.GREEN;
+            case 'p' -> MagicColor.PURPLE;
+            case 'l' -> MagicColor.YELLOW;
+            case 'o' -> MagicColor.ORANGE;
+            case 'n' -> MagicColor.BROWN;
+            case 'k' -> MagicColor.PINK;
+            default -> 0;
+        };
     }
 
     // This probably should be in ManaAtom since it cares about Mana, not Color.
@@ -85,25 +108,35 @@ public final class MagicColor {
     }
 
     public static String toShortString(final byte color) {
-        switch (color) {
-            case WHITE: return "W";
-            case BLUE:  return "U";
-            case BLACK: return "B";
-            case RED:   return "R";
-            case GREEN: return "G";
-            default:    return "C";
-        }
+        return switch (color) {
+            case WHITE -> "W";
+            case BLUE -> "U";
+            case BLACK -> "B";
+            case RED -> "R";
+            case GREEN -> "G";
+            case PURPLE -> "P";
+            case YELLOW -> "L";
+            case ORANGE -> "O";
+            case BROWN -> "N";
+            case PINK -> "K";
+            default -> "C";
+        };
     }
 
     public static String toLongString(final byte color) {
-        switch (color) {
-            case WHITE: return Constant.WHITE;
-            case BLUE:  return Constant.BLUE;
-            case BLACK: return Constant.BLACK;
-            case RED:   return Constant.RED;
-            case GREEN: return Constant.GREEN ;
-            default:    return Constant.COLORLESS;
-        }
+        return switch (color) {
+            case WHITE -> Constant.WHITE;
+            case BLUE -> Constant.BLUE;
+            case BLACK -> Constant.BLACK;
+            case RED -> Constant.RED;
+            case GREEN -> Constant.GREEN;
+            case PURPLE -> Constant.PURPLE;
+            case YELLOW -> Constant.YELLOW;
+            case ORANGE -> Constant.ORANGE;
+            case BROWN -> Constant.BROWN;
+            case PINK -> Constant.PINK;
+            default -> Constant.COLORLESS;
+        };
     }
 
     public static String toSymbol(final byte color) {
@@ -133,19 +166,34 @@ public final class MagicColor {
         /** The Green. */
         public static final String GREEN = "green";
 
+        /** The Purple. */
+        public static final String PURPLE = "purple";
+
+        /** The Yellow. */
+        public static final String YELLOW = "yellow";
+
+        /** The Orange. */
+        public static final String ORANGE = "orange";
+
+        /** The Brown. */
+        public static final String BROWN = "brown";
+
+        /** The Pink. */
+        public static final String PINK = "pink";
+
         /** The Colorless. */
         public static final String COLORLESS = "colorless";
 
         /** The only colors. */
-        public static final ImmutableList<String> ONLY_COLORS = ImmutableList.of(WHITE, BLUE, BLACK, RED, GREEN);
-        public static final ImmutableList<String> COLORS_AND_COLORLESS = ImmutableList.of(WHITE, BLUE, BLACK, RED, GREEN, COLORLESS);
+        public static final ImmutableList<String> ONLY_COLORS = ImmutableList.of(WHITE, BLUE, BLACK, RED, GREEN, PURPLE, YELLOW, ORANGE, BROWN, PINK);
+        public static final ImmutableList<String> COLORS_AND_COLORLESS = ImmutableList.of(WHITE, BLUE, BLACK, RED, GREEN, PURPLE, YELLOW, ORANGE, BROWN, PINK, COLORLESS);
 
         /** The Snow. */
         public static final String SNOW = "snow";
 
         /** The Basic lands. */
-        public static final ImmutableList<String> BASIC_LANDS = ImmutableList.of("Plains", "Island", "Swamp", "Mountain", "Forest");
-        public static final ImmutableList<String> SNOW_LANDS = ImmutableList.of("Snow-Covered Plains", "Snow-Covered Island", "Snow-Covered Swamp", "Snow-Covered Mountain", "Snow-Covered Forest");
+        public static final ImmutableList<String> BASIC_LANDS = ImmutableList.of("Plains", "Island", "Swamp", "Mountain", "Forest", "Cave", "Tempest", "Dune", "Valley", "Meadow");
+        public static final ImmutableList<String> SNOW_LANDS = ImmutableList.of("Snow-Covered Plains", "Snow-Covered Island", "Snow-Covered Swamp", "Snow-Covered Mountain", "Snow-Covered Forest", "Snow-Covered Cave", "Snow-Covered Tempest", "Snow-Covered Dune", "Snow-Covered Valley", "Snow-Covered Meadow");
         public static final String ANY_COLOR_CONVERSION = "AnyType->AnyColor";
 
         public static final String ANY_TYPE_CONVERSION = "AnyType->AnyType";
@@ -162,6 +210,11 @@ public final class MagicColor {
         BLACK(Constant.BLACK, MagicColor.BLACK, "{B}"),
         RED(Constant.RED, MagicColor.RED, "{R}"),
         GREEN(Constant.GREEN, MagicColor.GREEN, "{G}"),
+        PURPLE(Constant.PURPLE, MagicColor.PURPLE, "{P}"),
+        YELLOW(Constant.YELLOW, MagicColor.YELLOW, "{L}"),
+        ORANGE(Constant.ORANGE, MagicColor.ORANGE, "{O}"),
+        BROWN(Constant.BROWN, MagicColor.BROWN, "{N}"),
+        PINK(Constant.PINK, MagicColor.PINK, "{K}"),
         COLORLESS(Constant.COLORLESS, MagicColor.COLORLESS, "{C}");
 
         private final String name, symbol;
@@ -174,14 +227,19 @@ public final class MagicColor {
         }
 
         public static Color fromByte(final byte color) {
-            switch (color) {
-                case MagicColor.WHITE: return WHITE;
-                case MagicColor.BLUE: return BLUE;
-                case MagicColor.BLACK: return BLACK;
-                case MagicColor.RED: return RED;
-                case MagicColor.GREEN: return GREEN;
-                default: return COLORLESS;
-            }
+            return switch (color) {
+                case MagicColor.WHITE -> WHITE;
+                case MagicColor.BLUE -> BLUE;
+                case MagicColor.BLACK -> BLACK;
+                case MagicColor.RED -> RED;
+                case MagicColor.GREEN -> GREEN;
+                case MagicColor.PURPLE -> PURPLE;
+                case MagicColor.YELLOW -> YELLOW;
+                case MagicColor.ORANGE -> ORANGE;
+                case MagicColor.BROWN -> BROWN;
+                case MagicColor.PINK -> PINK;
+                default -> COLORLESS;
+            };
         }
 
         public String getName() {

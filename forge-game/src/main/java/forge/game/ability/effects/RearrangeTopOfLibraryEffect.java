@@ -35,7 +35,7 @@ public class RearrangeTopOfLibraryEffect extends SpellAbilityEffect {
         ret.append(numCards);
         ret.append(" cards of ");
         for (final Player p : tgtPlayers) {
-            ret.append(Lang.getInstance().getPossesive(p.getName()));
+            ret.append(Lang.getInstance().getPossessive(p.getName()));
             ret.append(" & ");
         }
         ret.delete(ret.length() - 3, ret.length());

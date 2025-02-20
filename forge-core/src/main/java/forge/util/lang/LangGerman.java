@@ -14,7 +14,7 @@ public class LangGerman extends Lang {
 
     // TODO: Please update this when you modified lblYou in de-DE.properties
     @Override
-    public String getPossesive(final String name) {
+    public String getPossessive(final String name) {
         if ("You".equalsIgnoreCase(name)) {
             return name + "r"; // to get "your"
         }
@@ -23,7 +23,7 @@ public class LangGerman extends Lang {
 
     @Override
     public String getPossessedObject(final String owner, final String object) {
-        return getPossesive(owner) + " " + object;
+        return getPossessive(owner) + " " + object;
     }
 
 }

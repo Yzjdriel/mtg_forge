@@ -35,7 +35,7 @@ public class GameEventZone extends GameEvent {
      */
     @Override
     public String toString() {
-        String owners = player == null ? "Game" : Lang.getInstance().getPossesive(player.getName());
+        String owners = player == null ? "Game" : Lang.getInstance().getPossessive(player.getName());
         return card == null
                 ? TextUtil.concatWithSpace(owners, zoneType.toString(), ":", mode.toString())
                 : TextUtil.concatWithSpace(owners, zoneType.toString(), ":", mode.toString(), card.toString()

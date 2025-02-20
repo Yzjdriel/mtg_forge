@@ -22,6 +22,6 @@ public class GameEventPlayerShardsChanged extends GameEvent {
 
     @Override
     public String toString() {
-        return TextUtil.concatWithSpace(Lang.getInstance().getPossesive(player.getName()),"shards changed:",  String.valueOf(oldShards),"->", String.valueOf(newShards));
+        return TextUtil.concatWithSpace(Lang.getInstance().getPossessive(player.getName()),"shards changed:",  String.valueOf(oldShards),"->", String.valueOf(newShards));
     }
 }

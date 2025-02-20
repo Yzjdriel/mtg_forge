@@ -2661,7 +2661,7 @@ public class AbilityUtils {
             boolean untappedOnly = sq[1].contains("ByUntappedSources");
             int uniqueColors = 0;
             CardCollectionView otb = player.getCardsIn(ZoneType.Battlefield);
-            outer: for (byte color : MagicColor.WUBRG) {
+            outer: for (byte color : MagicColor.WUBRGPLONK) {
                 for (Card card : otb) {
                     if (!card.isTapped() || !untappedOnly) {
                         for (SpellAbility ma : card.getManaAbilities()) {
@@ -2990,7 +2990,7 @@ public class AbilityUtils {
 
             byte replacedColor = ManaAtom.fromConversion(sides[1]);
             if (sides[0].equals("AnyColor") || sides[0].equals("AnyType")) {
-                for (byte c : (sides[0].equals("AnyColor") ? MagicColor.WUBRG : MagicColor.WUBRGC)) {
+                for (byte c : (sides[0].equals("AnyColor") ? MagicColor.WUBRGPLONK : MagicColor.WUBRGPLONKC)) {
                     matrix.adjustColorReplacement(c, replacedColor, additive);
                 }
             } else if (sides[0].startsWith("non")) {
@@ -3122,7 +3122,7 @@ public class AbilityUtils {
         for (final Entry<String, String> e : colorMap.entrySet()) {
             final String key = e.getKey();
             if (key.equals("Any")) {
-                for (final byte c : MagicColor.WUBRG) {
+                for (final byte c : MagicColor.WUBRGPLONK) {
                     final String colorLowerCase = MagicColor.toLongString(c).toLowerCase(),
                             colorCaptCase = StringUtils.capitalize(MagicColor.toLongString(c));
                     // Color should not replace itself.

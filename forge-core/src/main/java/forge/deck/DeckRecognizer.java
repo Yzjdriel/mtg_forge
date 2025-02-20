@@ -402,9 +402,9 @@ public class DeckRecognizer {
     public static final String REX_NOCARD = String.format("^(?<pre>[^a-zA-Z]*)\\s*(?<title>(\\w+[:]\\s*))?(?<%s>[a-zA-Z]+)(?<post>[^a-zA-Z]*)?$", REGRP_TOKEN);
     public static final String REX_CMC = String.format("^(?<pre>[^a-zA-Z]*)\\s*(?<%s>(C(M)?C(\\s)?\\d{1,2}))(?<post>[^\\d]*)?$", REGRP_TOKEN);
     public static final String REX_RARITY = String.format("^(?<pre>[^a-zA-Z]*)\\s*(?<%s>((un)?common|(mythic)?\\s*(rare)?|land|special))(?<post>[^a-zA-Z]*)?$", REGRP_TOKEN);
-    public static final String MANA_SYMBOLS = "w|u|b|r|g|c|m|wu|ub|br|rg|gw|wb|ur|bg|rw|gu";
+    public static final String MANA_SYMBOLS = "w|u|b|r|g|p|l|o|n|k|c|m|wu|ub|br|rg|gw|wb|ur|bg|rw|gu|pl|po|lo|ln|on|ok|nk|np|kp|kl|wp|wl|wo|wn|wk|up|ul|uo|un|uk|bp|bl|bo|bn|bk|rp|rl|ro|rn|rk|gp|gl|go|gn|gk";
     public static final String REX_MANA_SYMBOLS = String.format("\\{(?<%s>(%s))\\}", REGRP_MANA, MANA_SYMBOLS);
-    public static final String REX_MANA_COLOURS = String.format("(\\{(%s)\\})|(white|blue|black|red|green|colo(u)?rless|multicolo(u)?r)", MANA_SYMBOLS);
+    public static final String REX_MANA_COLOURS = String.format("(\\{(%s)\\})|(white|blue|black|red|green|purple|yellow|orange|brown|pink|colo(u)?rless|multicolo(u)?r)", MANA_SYMBOLS);
     public static final String REX_MANA = String.format("^(?<pre>[^a-zA-Z]*)\\s*(?<%s>(%s))((\\s|-|\\|)(?<%s>(%s)))?(?<post>[^a-zA-Z]*)?$",
             REGRP_COLR1, REX_MANA_COLOURS, REGRP_COLR2, REX_MANA_COLOURS);
     public static final Pattern NONCARD_PATTERN = Pattern.compile(REX_NOCARD, Pattern.CASE_INSENSITIVE);
@@ -1003,6 +1003,41 @@ public class DeckRecognizer {
         put(MagicColor.BLACK | MagicColor.GREEN, "BG");
         put(MagicColor.RED | MagicColor.WHITE, "RW");
         put(MagicColor.GREEN | MagicColor.BLUE, "GU");
+        put(MagicColor.PURPLE | MagicColor.YELLOW, "PL");
+        put(MagicColor.PURPLE | MagicColor.ORANGE, "PO");
+        put(MagicColor.YELLOW | MagicColor.ORANGE, "LO");
+        put(MagicColor.YELLOW | MagicColor.BROWN, "LN");
+        put(MagicColor.ORANGE | MagicColor.BROWN, "ON");
+        put(MagicColor.ORANGE | MagicColor.PINK, "OK");
+        put(MagicColor.BROWN | MagicColor.PINK, "NK");
+        put(MagicColor.BROWN | MagicColor.PURPLE, "NP");
+        put(MagicColor.PINK | MagicColor.PURPLE, "KP");
+        put(MagicColor.PINK | MagicColor.YELLOW, "KL");
+        put(MagicColor.WHITE | MagicColor.PURPLE, "WP");
+        put(MagicColor.WHITE | MagicColor.YELLOW, "WL");
+        put(MagicColor.WHITE | MagicColor.ORANGE, "WO");
+        put(MagicColor.WHITE | MagicColor.BROWN, "WN");
+        put(MagicColor.WHITE | MagicColor.PINK, "WK");
+        put(MagicColor.BLUE | MagicColor.PURPLE, "UP");
+        put(MagicColor.BLUE | MagicColor.YELLOW, "UL");
+        put(MagicColor.BLUE | MagicColor.ORANGE, "UO");
+        put(MagicColor.BLUE | MagicColor.BROWN, "UN");
+        put(MagicColor.BLUE | MagicColor.PINK, "UK");
+        put(MagicColor.BLACK | MagicColor.PURPLE, "BP");
+        put(MagicColor.BLACK | MagicColor.YELLOW, "BL");
+        put(MagicColor.BLACK | MagicColor.ORANGE, "BO");
+        put(MagicColor.BLACK | MagicColor.BROWN, "BN");
+        put(MagicColor.BLACK | MagicColor.PINK, "BK");
+        put(MagicColor.RED | MagicColor.PURPLE, "RP");
+        put(MagicColor.RED | MagicColor.YELLOW, "RL");
+        put(MagicColor.RED | MagicColor.ORANGE, "RO");
+        put(MagicColor.RED | MagicColor.BROWN, "RN");
+        put(MagicColor.RED | MagicColor.PINK, "RK");
+        put(MagicColor.GREEN | MagicColor.PURPLE, "GP");
+        put(MagicColor.GREEN | MagicColor.YELLOW, "GL");
+        put(MagicColor.GREEN | MagicColor.ORANGE, "GO");
+        put(MagicColor.GREEN | MagicColor.BROWN, "GN");
+        put(MagicColor.GREEN | MagicColor.PINK, "GK");;
     }};
     private static String getMagicColourLabel(MagicColor.Color magicColor1, MagicColor.Color magicColor2){
         if (magicColor2 == null || magicColor2 == MagicColor.Color.COLORLESS
@@ -1019,49 +1054,38 @@ public class DeckRecognizer {
             return null;  // will be handled separately
 
         byte color = MagicColor.fromName(colorName.toLowerCase());
-        switch (color) {
-            case MagicColor.WHITE:
-                return MagicColor.Color.WHITE;
-            case MagicColor.BLUE:
-                return MagicColor.Color.BLUE;
-            case MagicColor.BLACK:
-                return MagicColor.Color.BLACK;
-            case MagicColor.RED:
-                return MagicColor.Color.RED;
-            case MagicColor.GREEN:
-                return MagicColor.Color.GREEN;
-            default:
-                return MagicColor.Color.COLORLESS;
-
-        }
+        return switch (color) {
+            case MagicColor.WHITE -> MagicColor.Color.WHITE;
+            case MagicColor.BLUE -> MagicColor.Color.BLUE;
+            case MagicColor.BLACK -> MagicColor.Color.BLACK;
+            case MagicColor.RED -> MagicColor.Color.RED;
+            case MagicColor.GREEN -> MagicColor.Color.GREEN;
+            case MagicColor.PURPLE -> MagicColor.Color.PURPLE;
+            case MagicColor.YELLOW -> MagicColor.Color.YELLOW;
+            case MagicColor.ORANGE -> MagicColor.Color.ORANGE;
+            case MagicColor.BROWN -> MagicColor.Color.BROWN;
+            case MagicColor.PINK -> MagicColor.Color.PINK;
+            default -> MagicColor.Color.COLORLESS;
+        };
     }
 
     public static String getLocalisedMagicColorName(String colorName){
         Localizer localizer = Localizer.getInstance();
-        switch(colorName.toLowerCase()){
-            case MagicColor.Constant.WHITE:
-                return localizer.getMessage("lblWhite");
-
-            case MagicColor.Constant.BLUE:
-                return localizer.getMessage("lblBlue");
-
-            case MagicColor.Constant.BLACK:
-                return localizer.getMessage("lblBlack");
-
-            case MagicColor.Constant.RED:
-                return localizer.getMessage("lblRed");
-
-            case MagicColor.Constant.GREEN:
-                return localizer.getMessage("lblGreen");
-
-            case MagicColor.Constant.COLORLESS:
-                return localizer.getMessage("lblColorless");
-            case "multicolour":
-            case "multicolor":
-                return localizer.getMessage("lblMulticolor");
-            default:
-                return "";
-        }
+        return switch (colorName.toLowerCase()) {
+            case MagicColor.Constant.WHITE -> localizer.getMessage("lblWhite");
+            case MagicColor.Constant.BLUE -> localizer.getMessage("lblBlue");
+            case MagicColor.Constant.BLACK -> localizer.getMessage("lblBlack");
+            case MagicColor.Constant.RED -> localizer.getMessage("lblRed");
+            case MagicColor.Constant.GREEN -> localizer.getMessage("lblGreen");
+            case MagicColor.Constant.PURPLE -> localizer.getMessage("lblPurple");
+            case MagicColor.Constant.YELLOW -> localizer.getMessage("lblYellow");
+            case MagicColor.Constant.ORANGE -> localizer.getMessage("lblOrange");
+            case MagicColor.Constant.BROWN -> localizer.getMessage("lblBrown");
+            case MagicColor.Constant.PINK -> localizer.getMessage("lblPink");
+            case MagicColor.Constant.COLORLESS -> localizer.getMessage("lblColorless");
+            case "multicolour", "multicolor" -> localizer.getMessage("lblMulticolor");
+            default -> "";
+        };
     }
 
     /**
@@ -1077,6 +1101,11 @@ public class DeckRecognizer {
         if(localisedName.equals(localizer.getMessage("lblBlack"))) return MagicColor.Constant.BLACK;
         if(localisedName.equals(localizer.getMessage("lblRed"))) return MagicColor.Constant.RED;
         if(localisedName.equals(localizer.getMessage("lblGreen"))) return MagicColor.Constant.GREEN;
+        if(localisedName.equals(localizer.getMessage("lblPurple"))) return MagicColor.Constant.PURPLE;
+        if(localisedName.equals(localizer.getMessage("lblYellow"))) return MagicColor.Constant.YELLOW;
+        if(localisedName.equals(localizer.getMessage("lblOrange"))) return MagicColor.Constant.ORANGE;
+        if(localisedName.equals(localizer.getMessage("lblBrown"))) return MagicColor.Constant.BROWN;
+        if(localisedName.equals(localizer.getMessage("lblPink"))) return MagicColor.Constant.PINK;
 
         return "";
     }
@@ -1087,28 +1116,32 @@ public class DeckRecognizer {
             return null;
 
         Localizer localizer = Localizer.getInstance();
-        switch (matchedMana.toLowerCase()) {
-            case MagicColor.Constant.WHITE:
-            case "w":
-                return Pair.of(localizer.getMessage("lblWhite"), MagicColor.Color.WHITE.getSymbol());
-            case MagicColor.Constant.BLUE:
-            case "u":
-                return Pair.of(localizer.getMessage("lblBlue"), MagicColor.Color.BLUE.getSymbol());
-            case MagicColor.Constant.BLACK:
-            case "b":
-                return Pair.of(localizer.getMessage("lblBlack"), MagicColor.Color.BLACK.getSymbol());
-            case MagicColor.Constant.RED:
-            case "r":
-                return Pair.of(localizer.getMessage("lblRed"), MagicColor.Color.RED.getSymbol());
-            case MagicColor.Constant.GREEN:
-            case "g":
-                return Pair.of(localizer.getMessage("lblGreen"), MagicColor.Color.GREEN.getSymbol());
-            case MagicColor.Constant.COLORLESS:
-            case "c":
-                return Pair.of(localizer.getMessage("lblColorless"), MagicColor.Color.COLORLESS.getSymbol());
-            default: // Multicolour
-                return Pair.of(localizer.getMessage("lblMulticolor"), "");
-        }
+        return switch (matchedMana.toLowerCase()) {
+            case MagicColor.Constant.WHITE, "w" ->
+                    Pair.of(localizer.getMessage("lblWhite"), MagicColor.Color.WHITE.getSymbol());
+            case MagicColor.Constant.BLUE, "u" ->
+                    Pair.of(localizer.getMessage("lblBlue"), MagicColor.Color.BLUE.getSymbol());
+            case MagicColor.Constant.BLACK, "b" ->
+                    Pair.of(localizer.getMessage("lblBlack"), MagicColor.Color.BLACK.getSymbol());
+            case MagicColor.Constant.RED, "r" ->
+                    Pair.of(localizer.getMessage("lblRed"), MagicColor.Color.RED.getSymbol());
+            case MagicColor.Constant.GREEN, "g" ->
+                    Pair.of(localizer.getMessage("lblGreen"), MagicColor.Color.GREEN.getSymbol());
+            case MagicColor.Constant.PURPLE, "p" ->
+                    Pair.of(localizer.getMessage("lblPurple"), MagicColor.Color.PURPLE.getSymbol());
+            case MagicColor.Constant.YELLOW, "l" ->
+                    Pair.of(localizer.getMessage("lblYellow"), MagicColor.Color.YELLOW.getSymbol());
+            case MagicColor.Constant.ORANGE, "o" ->
+                    Pair.of(localizer.getMessage("lblOrange"), MagicColor.Color.ORANGE.getSymbol());
+            case MagicColor.Constant.BROWN, "n" ->
+                    Pair.of(localizer.getMessage("lblBrown"), MagicColor.Color.BROWN.getSymbol());
+            case MagicColor.Constant.PINK, "k" ->
+                    Pair.of(localizer.getMessage("lblPink"), MagicColor.Color.PINK.getSymbol());
+            case MagicColor.Constant.COLORLESS, "c" ->
+                    Pair.of(localizer.getMessage("lblColorless"), MagicColor.Color.COLORLESS.getSymbol());
+            default -> // Multicolour
+                    Pair.of(localizer.getMessage("lblMulticolor"), "");
+        };
     }
 
     public static boolean isDeckName(final String lineAsIs) {

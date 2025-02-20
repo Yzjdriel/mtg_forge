@@ -3251,7 +3251,7 @@ public class Player extends GameEntity implements Comparable<Player> {
      }
 
     public static DetachedCardEffect createCompanionEffect(Game game, Card companion) {
-        final String name = Lang.getInstance().getPossesive(companion.getName()) + " Companion Effect";
+        final String name = Lang.getInstance().getPossessive(companion.getName()) + " Companion Effect";
         DetachedCardEffect eff = new DetachedCardEffect(companion, name);
 
         String addToHandAbility = "Mode$ Continuous | EffectZone$ Command | Affected$ Card.YouOwn+EffectSource | AffectedZone$ Command | AddAbility$ MoveToHand";

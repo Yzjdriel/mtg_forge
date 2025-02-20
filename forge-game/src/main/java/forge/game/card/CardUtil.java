@@ -165,13 +165,13 @@ public final class CardUtil {
         byte combinedColor = 0;
         for (Card tgt : tgts) {
             ColorSet cs = tgt.getColor();
-            for (byte color : MagicColor.WUBRG) {
+            for (byte color : MagicColor.WUBRGPLONK) {
                 if(!cs.hasAnyColor(color))
                     continue;
                 combinedColor |= color;
             }
         }
-        for (byte color : MagicColor.WUBRG) {
+        for (byte color : MagicColor.WUBRGPLONK) {
             if ((combinedColor & color) == 0) {
                 continue;
             }

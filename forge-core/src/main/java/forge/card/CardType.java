@@ -54,7 +54,8 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
         Planeswalker(true, "planeswalkers"),
         Scheme(false, "schemes"),
         Sorcery(false, "sorceries"),
-        Vanguard(false, "vanguards");
+        Vanguard(false, "vanguards"),
+        Structure(false, "structures");
 
         public final boolean isPermanent;
         public final String pluralName;
@@ -82,20 +83,14 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
          * @return a GamePieceType appropriate for this core type.
          */
         public GamePieceType toGamePieceType() {
-            switch(this) {
-                case Plane:
-                case Phenomenon:
-                    return GamePieceType.PLANAR;
-                case Scheme:
-                    return GamePieceType.SCHEME;
-                case Dungeon:
-                    return GamePieceType.DUNGEON;
-                case Vanguard:
-                    return GamePieceType.AVATAR;
+            return switch (this) {
+                case Plane, Phenomenon -> GamePieceType.PLANAR;
+                case Scheme -> GamePieceType.SCHEME;
+                case Dungeon -> GamePieceType.DUNGEON;
+                case Vanguard -> GamePieceType.AVATAR;
                 //Sticker sheets will probably eventually go here.
-                default:
-                    return GamePieceType.CARD;
-            }
+                default -> GamePieceType.CARD;
+            };
         }
     }
 
@@ -422,6 +417,9 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
     }
 
     @Override
+    public boolean isStructure() { return coreTypes.contains(CoreType.Structure); }
+
+    @Override
     public boolean isBattle() {
         return coreTypes.contains(CoreType.Battle);
     }
@@ -613,6 +611,9 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
                 if (ct.isRemoveEnchantmentTypes()) {
                     newType.subtypes.removeIf(Predicates.IS_ENCHANTMENT_TYPE);
                 }
+                if (ct.isRemoveStructureTypes()) {
+                    newType.subtypes.removeIf(Predicates.IS_STRUCTURE_TYPE);
+                }
             }
             if (ct.getRemoveType() != null) {
                 newType.removeAll(ct.getRemoveType());
@@ -712,7 +713,7 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
         return toString().compareTo(o.toString());
     }
 
-    public boolean sharesCreaturetypeWith(final CardTypeView ctOther) {
+    public boolean sharesCreatureTypeWith(final CardTypeView ctOther) {
         if (ctOther == null) {
             return false;
         }
@@ -803,7 +804,7 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
         if (ctOther == null) {
             return false;
         }
-        if (sharesCreaturetypeWith(ctOther)) {
+        if (sharesCreatureTypeWith(ctOther)) {
             return true;
         }
         for (final String t : ctOther.getSubtypes()) {
@@ -879,6 +880,7 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
         public static final Set<String> ENCHANTMENT_TYPES = Sets.newHashSet();
         public static final Set<String> ARTIFACT_TYPES = Sets.newHashSet();
         public static final Set<String> WALKER_TYPES = Sets.newHashSet();
+        public static final Set<String> STRUCTURE_TYPES = Sets.newHashSet();
         public static final Set<String> DUNGEON_TYPES = Sets.newHashSet();
         public static final Set<String> BATTLE_TYPES = Sets.newHashSet();
         public static final Set<String> PLANAR_TYPES = Sets.newHashSet();
@@ -916,6 +918,7 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
         public static Predicate<String> IS_SPELL_TYPE = CardType::isASpellType;
 
         public static Predicate<String> IS_WALKER_TYPE = CardType::isAPlaneswalkerType;
+        public static Predicate<String> IS_STRUCTURE_TYPE = CardType::isAStructureType;
         public static Predicate<String> IS_DUNGEON_TYPE = CardType::isADungeonType;
         public static Predicate<String> IS_BATTLE_TYPE = CardType::isABattleType;
 
@@ -1002,6 +1005,10 @@ public final class CardType implements Comparable<CardType>, CardTypeView {
 
     public static boolean isAPlaneswalkerType(final String cardType) {
         return Constant.WALKER_TYPES.contains(cardType);
+    }
+
+    public static boolean isAStructureType(final String cardType) {
+        return Constant.STRUCTURE_TYPES.contains(cardType);
     }
 
     public static boolean isABasicLandType(final String cardType) {

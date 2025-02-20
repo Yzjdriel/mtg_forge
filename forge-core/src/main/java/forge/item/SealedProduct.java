@@ -37,9 +37,14 @@ public abstract class SealedProduct implements InventoryItemFromSet {
     static {
         specialSets.add("Black");
         specialSets.add("Blue");
+        specialSets.add("Brown");
         specialSets.add("Green");
+        specialSets.add("Orange");
+        specialSets.add("Pink");
+        specialSets.add("Purple");
         specialSets.add("Red");
         specialSets.add("White");
+        specialSets.add("Yellow");
         specialSets.add("Colorless");
     }
 

@@ -15,6 +15,10 @@ public enum GamePieceType {
      */
     TOKEN,
     /**
+     * A scroll that ceases to exist outside the hand, stack, archive, or library
+     */
+    SCROLL,
+    /**
      * Intangible object that exists in the command zone.
      * Includes emblems and boons.
      */

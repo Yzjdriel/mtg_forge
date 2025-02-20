@@ -41,6 +41,7 @@ final class CardFace implements ICardFace, Cloneable {
     private String power = null;
     private String toughness = null;
     private String initialLoyalty = "";
+    private String initialStability = "";
     private String defense = "";
     private Set<Integer> attractionLights = null;
 
@@ -58,18 +59,19 @@ final class CardFace implements ICardFace, Cloneable {
 
 
     // these implement ICardCharacteristics 
-    @Override public String getOracleText()         { return oracleText; }
-    @Override public int getIntPower()              { return iPower; }
-    @Override public int getIntToughness()          { return iToughness; }
-    @Override public String getPower()              { return power; }
-    @Override public String getToughness()          { return toughness; }
-    @Override public String getInitialLoyalty()              { return initialLoyalty; }
-    @Override public String getDefense()              { return defense; }
-    @Override public Set<Integer> getAttractionLights()   { return attractionLights; }
-    @Override public String getName()               { return this.name; }
-    @Override public CardType getType()             { return this.type; }
-    @Override public ManaCost getManaCost()         { return this.manaCost; }
-    @Override public ColorSet getColor()            { return this.color; }
+    @Override public String getOracleText()                 { return oracleText; }
+    @Override public int getIntPower()                      { return iPower; }
+    @Override public int getIntToughness()                  { return iToughness; }
+    @Override public String getPower()                      { return power; }
+    @Override public String getToughness()                  { return toughness; }
+    @Override public String getInitialLoyalty()             { return initialLoyalty; }
+    @Override public String getInitialStability()           { return initialStability;}
+    @Override public String getDefense()                    { return defense; }
+    @Override public Set<Integer> getAttractionLights()     { return attractionLights; }
+    @Override public String getName()                       { return this.name; }
+    @Override public CardType getType()                     { return this.type; }
+    @Override public ManaCost getManaCost()                 { return this.manaCost; }
+    @Override public ColorSet getColor()                    { return this.color; }
         
     // these are raw and unparsed used for Card creation
     @Override public Iterable<String> getKeywords()   { return keywords; }
@@ -100,6 +102,7 @@ final class CardFace implements ICardFace, Cloneable {
     void setColor(ColorSet color0)           { this.color = color0; }
     void setOracleText(String text)          { this.oracleText = text; }
     void setInitialLoyalty(String value)     { this.initialLoyalty = value; }
+    void setInitialStability(String value)   { this.initialStability = value; }
     void setDefense(String value)            { this.defense = value; }
     void setAttractionLights(String value) {
         if (value == null) {

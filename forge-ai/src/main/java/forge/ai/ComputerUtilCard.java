@@ -909,7 +909,7 @@ public class ComputerUtilCard {
      */
     public static String getMostProminentColor(final Iterable<Card> list) {
         byte colors = CardFactoryUtil.getMostProminentColors(list);
-        for (byte c : MagicColor.WUBRG) {
+        for (byte c : MagicColor.WUBRGPLONK) {
             if ((colors & c) != 0)
                 return MagicColor.toLongString(c);
         }
@@ -918,7 +918,7 @@ public class ComputerUtilCard {
 
     public static String getMostProminentColor(final CardCollectionView list, final List<String> restrictedToColors) {
         byte colors = CardFactoryUtil.getMostProminentColorsFromList(list, restrictedToColors);
-        for (byte c : MagicColor.WUBRG) {
+        for (byte c : MagicColor.WUBRGPLONK) {
             if ((colors & c) != 0) {
                 return MagicColor.toLongString(c);
             }
@@ -927,10 +927,10 @@ public class ComputerUtilCard {
     }
 
     public static List<String> getColorByProminence(final List<Card> list) {
-        int cntColors = MagicColor.WUBRG.length;
+        int cntColors = MagicColor.WUBRGPLONK.length;
         final List<Pair<Byte, Integer>> map = new ArrayList<>();
         for (int i = 0; i < cntColors; i++) {
-            map.add(MutablePair.of(MagicColor.WUBRG[i], 0));
+            map.add(MutablePair.of(MagicColor.WUBRGPLONK[i], 0));
         }
 
         for (final Card crd : list) {
@@ -1007,7 +1007,7 @@ public class ComputerUtilCard {
             } else if (logic.equals("MostExcessOpponentControls")) {
                 int maxExcess = 0;
                 String bestColor = Constant.GREEN;
-                for (byte color : MagicColor.WUBRG) {
+                for (byte color : MagicColor.WUBRGPLONK) {
                     CardCollectionView ailist = ai.getColoredCardsInPlay(color);
                     CardCollectionView opplist = opp.getColoredCardsInPlay(color);
 
@@ -1035,7 +1035,7 @@ public class ComputerUtilCard {
                 int curDevotion = 0;
                 String chosenColor = MagicColor.Constant.WHITE;
                 CardCollectionView hand = ai.getCardsIn(ZoneType.Hand);
-                for (byte c : MagicColor.WUBRG) {
+                for (byte c : MagicColor.WUBRGPLONK) {
                     String devotionCode = "Count$Devotion." + MagicColor.toLongString(c);
 
                     int devotion = AbilityUtils.calculateAmount(sa.getHostCard(), devotionCode, sa);

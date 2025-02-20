@@ -275,14 +275,14 @@ public class CardFactoryUtil {
      * @return a boolean.
      */
     public static byte getMostProminentColors(final Iterable<Card> list) {
-        int cntColors = MagicColor.WUBRG.length;
+        int cntColors = MagicColor.WUBRGPLONK.length;
         final Integer[] map = new Integer[cntColors];
         Arrays.fill(map, 0);
 
         for (final Card crd : list) {
             ColorSet color = crd.getColor();
             for (int i = 0; i < cntColors; i++) {
-                if (color.hasAnyColor(MagicColor.WUBRG[i]))
+                if (color.hasAnyColor(MagicColor.WUBRGPLONK[i]))
                     map[i]++;
             }
         }
@@ -291,9 +291,9 @@ public class CardFactoryUtil {
         int nMax = -1;
         for (int i = 0; i < cntColors; i++) {
             if (map[i] > nMax)
-                mask = MagicColor.WUBRG[i];
+                mask = MagicColor.WUBRGPLONK[i];
             else if (map[i] == nMax)
-                mask |= MagicColor.WUBRG[i];
+                mask |= MagicColor.WUBRGPLONK[i];
             else
                 continue;
             nMax = map[i];
@@ -311,13 +311,13 @@ public class CardFactoryUtil {
      * @return a List.
      */
     public static int[] SortColorsFromList(final CardCollection list) {
-        int cntColors = MagicColor.WUBRG.length;
+        int cntColors = MagicColor.WUBRGPLONK.length;
         final int[] map = new int[cntColors];
 
         for (final Card crd : list) {
             ColorSet color = crd.getColor();
             for (int i = 0; i < cntColors; i++) {
-                if (color.hasAnyColor(MagicColor.WUBRG[i]))
+                if (color.hasAnyColor(MagicColor.WUBRGPLONK[i]))
                     map[i]++;
             }
         }
@@ -484,7 +484,7 @@ public class CardFactoryUtil {
                     landkw.add(k);
                 } else if (inst.getKeyword().equals(Keyword.PROTECTION)) {
                     protectionkw.add(k);
-                    for (byte col : MagicColor.WUBRG) {
+                    for (byte col : MagicColor.WUBRGPLONK) {
                         final String colString = MagicColor.toLongString(col);
                         final String protString = "Protection from " + colString;
                         if (k.equals(protString) || k.contains(StringUtils.capitalize(colString) + ":" + colString)) {

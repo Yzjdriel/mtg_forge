@@ -27,7 +27,7 @@ public class GameEventTurnPhase extends GameEvent {
 
     @Override
     public String toString() {
-        String playerName = Lang.getInstance().getPossesive(playerTurn.getName());
+        String playerName = Lang.getInstance().getPossessive(playerTurn.getName());
         return TextUtil.concatWithSpace(playerName,"turn,", phaseDesc+phase.nameForUi, "phase");
     }
 }

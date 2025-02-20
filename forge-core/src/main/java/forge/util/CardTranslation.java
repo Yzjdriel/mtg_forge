@@ -11,9 +11,9 @@ import java.util.*;
 
 public class CardTranslation {
 
-    private static Map <String, String> translatednames;
-    private static Map <String, String> translatedtypes;
-    private static Map <String, String> translatedoracles;
+    private static Map <String, String> translatedNames;
+    private static Map <String, String> translatedTypes;
+    private static Map <String, String> translatedOracles;
     private static Map <String, List <Pair <String, String> > > oracleMappings;
     private static Map <String, String> translatedCaches;
     private static Map <String, String> translatedEffectNames;
@@ -33,14 +33,14 @@ public class CardTranslation {
                         String[] variantSplit = matches[0].split("\\s*\\$", 2);
                         if(variantSplit.length > 1) {
                             //Add the base name to the translated names.
-                            translatednames.put(variantSplit[0], matches[1]);
+                            translatedNames.put(variantSplit[0], matches[1]);
                             matches[0] = variantSplit[0] + " $" + variantSplit[1]; //Standardize storage.
                         }
                     }
-                    translatednames.put(matches[0], matches[1]);
+                    translatedNames.put(matches[0], matches[1]);
                 }
                 if (matches.length >= 3) {
-                    translatedtypes.put(matches[0], matches[2]);
+                    translatedTypes.put(matches[0], matches[2]);
                 }
                 if (matches.length >= 4) {
                     String toracle = matches[3];
@@ -48,7 +48,7 @@ public class CardTranslation {
                     toracle = toracle.replace("//Level_2//\\n", "").replace("//Level_3//\\n", "");
                     // Workaround for roll dice cards
                     toracle = toracle.replace("\\n", "\r\n\r\n").replace("VERT", "|");
-                    translatedoracles.put(matches[0], toracle);
+                    translatedOracles.put(matches[0], toracle);
                 }
             }
         } catch (IOException e) {
@@ -63,7 +63,7 @@ public class CardTranslation {
                 int splitIndex = name.indexOf(" // ");
                 String leftname = name.substring(0, splitIndex);
                 String rightname = name.substring(splitIndex + 4);
-                return translatednames.getOrDefault(leftname, leftname) + " // " + translatednames.getOrDefault(rightname, rightname);
+                return translatedNames.getOrDefault(leftname, leftname) + " // " + translatedNames.getOrDefault(rightname, rightname);
             }
             try {
                 if (name.endsWith(" Token")) {
@@ -73,7 +73,7 @@ public class CardTranslation {
                 } else if (knownEffectNames.contains(name)) {
                     return translateKnownEffectNames(name);
                 } else {
-                    String tname = translatednames.get(name);
+                    String tname = translatedNames.get(name);
                     return (tname == null || tname.isEmpty()) ? name : tname;
                 }
             } catch (Exception e) {
@@ -148,7 +148,7 @@ public class CardTranslation {
             String finalname = name.replaceAll("\\([^()]*\\)", "");
             if (finalname.contains(" 's Effect")) {
                 finalname = finalname.replace( " 's Effect", "");
-                fname = translatednames.get(finalname);
+                fname = translatedNames.get(finalname);
                 if (fname == null || fname.isEmpty())
                     fname = finalname;
                 else {
@@ -158,7 +158,7 @@ public class CardTranslation {
                 return fname;
             } else if (finalname.contains("'s Effect")) {
                 finalname = finalname.replace( "'s Effect", "");
-                fname = translatednames.get(finalname);
+                fname = translatedNames.get(finalname);
                 if (fname == null || fname.isEmpty())
                     fname = finalname;
                 else {
@@ -168,7 +168,7 @@ public class CardTranslation {
                 return fname;
             } else if (finalname.contains(" 's Boon")) {
                 finalname = finalname.replace( " 's Boon", "");
-                fname = translatednames.get(finalname);
+                fname = translatedNames.get(finalname);
                 if (fname == null || fname.isEmpty())
                     fname = finalname;
                 else {
@@ -178,7 +178,7 @@ public class CardTranslation {
                 return fname;
             } else if (finalname.contains("'s Boon")) {
                 finalname = finalname.replace( "'s Boon", "");
-                fname = translatednames.get(finalname);
+                fname = translatedNames.get(finalname);
                 if (fname == null || fname.isEmpty())
                     fname = finalname;
                 else {
@@ -189,7 +189,7 @@ public class CardTranslation {
             } else if (finalname.startsWith("Emblem — ")) {
                 String []s = finalname.split(" — ");
                 try {
-                    fname = translatednames.get(s[1].endsWith(" ") ? s[1].substring(0, s[1].lastIndexOf(" ")) : s[1]);
+                    fname = translatedNames.get(s[1].endsWith(" ") ? s[1].substring(0, s[1].lastIndexOf(" ")) : s[1]);
                     if (fname == null || fname.isEmpty())
                         fname = finalname;
                     else {
@@ -209,7 +209,7 @@ public class CardTranslation {
 
     public static String getTranslatedType(String name, String originaltype) {
         if (needsTranslation()) {
-            String ttype = translatedtypes.get(name);
+            String ttype = translatedTypes.get(name);
             return ttype == null ? originaltype : ttype;
         }
 
@@ -219,12 +219,12 @@ public class CardTranslation {
     public static String getTranslatedType(ITranslatable item) {
         if (!needsTranslation())
             return item.getUntranslatedType();
-        return translatedtypes.getOrDefault(item.getTranslationKey(), item.getUntranslatedType());
+        return translatedTypes.getOrDefault(item.getTranslationKey(), item.getUntranslatedType());
     }
 
     public static String getTranslatedOracle(String name) {
         if (needsTranslation()) {
-            String toracle = translatedoracles.get(name);
+            String toracle = translatedOracles.get(name);
             return toracle == null ? "" : toracle;
         }
 
@@ -235,7 +235,7 @@ public class CardTranslation {
         if(!needsTranslation())
             return ""; //card.getUntranslatedOracle();
         //Fallbacks and english versions of oracle texts are handled elsewhere.
-        return translatedoracles.getOrDefault(card.getTranslationKey(), "");
+        return translatedOracles.getOrDefault(card.getTranslationKey(), "");
     }
 
     public static HashMap<String, String> getTranslationTexts(ITranslatable card) {
@@ -266,9 +266,9 @@ public class CardTranslation {
         languageSelected = language;
 
         if (needsTranslation()) {
-            translatednames = new HashMap<>();
-            translatedtypes = new HashMap<>();
-            translatedoracles = new HashMap<>();
+            translatedNames = new HashMap<>();
+            translatedTypes = new HashMap<>();
+            translatedOracles = new HashMap<>();
             oracleMappings = new HashMap<>();
             translatedCaches = new HashMap<>();
             readTranslationFile(languageSelected, languagesDirectory);

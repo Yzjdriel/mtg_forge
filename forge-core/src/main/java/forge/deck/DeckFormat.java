@@ -166,9 +166,9 @@ public enum DeckFormat {
             return defaultValue;
         }
 
-        final String valToCompate = value.trim();
+        final String valToCompare = value.trim();
         for (final DeckFormat v : DeckFormat.values()) {
-            if (v.name().compareToIgnoreCase(valToCompate) == 0) {
+            if (v.name().compareToIgnoreCase(valToCompare) == 0) {
                 return v;
             }
         }

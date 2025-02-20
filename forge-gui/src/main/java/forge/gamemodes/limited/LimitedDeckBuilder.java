@@ -433,8 +433,8 @@ public class LimitedDeckBuilder extends DeckGeneratorBase {
 
             // count each mana symbol in the mana cost
             for (final ManaCostShard shard : mc) {
-                for ( int i = 0 ; i < MagicColor.WUBRG.length; i++ ) {
-                    final byte c = MagicColor.WUBRG[i];
+                for (int i = 0; i < MagicColor.WUBRGPLONK.length; i++ ) {
+                    final byte c = MagicColor.WUBRGPLONK[i];
                     if ( shard.canBePaidWithManaOfColor(c) && colors.hasAnyColor(c)) {
                         clrCnts[i]++;
                     }

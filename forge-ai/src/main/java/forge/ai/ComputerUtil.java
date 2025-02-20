@@ -2223,15 +2223,15 @@ public class ComputerUtil {
         } else {
             //Too many lands!
             //Init
-            int cntColors = MagicColor.WUBRG.length;
+            int cntColors = MagicColor.WUBRGPLONK.length;
             List<CardCollection> numProducers = new ArrayList<>(cntColors);
-            for (byte col : MagicColor.WUBRG) {
+            for (byte col : MagicColor.WUBRGPLONK) {
                 numProducers.add(col, new CardCollection());
             }
 
             for (Card c : lands) {
                 for (SpellAbility sa : c.getManaAbilities()) {
-                    for (byte col : MagicColor.WUBRG) {
+                    for (byte col : MagicColor.WUBRGPLONK) {
                         if (sa.canProduce(MagicColor.toLongString(col))) {
                             numProducers.get(col).add(c);
                         }
